@@ -1,0 +1,116 @@
+
+        <!--En el reporte se debe incluir el nombre de cliente, número, DNI, dirección y para
+        cada transacción la fecha , el tipo de operación, el estado, el monto y razón por la
+        cual se rechazó (vacío en caso de ser aceptada).-->
+        <html lang="es">
+            <head>
+                <meta charset="UTF-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+                <title>Reporte transacciones</title>
+            </head>
+            <body>
+                <div class="container">
+                    <h2>Reporte</h2>
+                    <div class="card bg-secondary my-1">
+                        <h4 class="card-title m-2 pt-1 text-light">Cliente Gold</h4>
+                        <div class="card-body bg-light py-2 m-1">
+                            <p class="card-text my-0">Nombre: Nicolas</p>
+                            <p class="card-text my-0">Número: 100001</p>
+                            <p class="card-text my-0">DNI: 29494777</p>
+                            <p class="card-text my-0">Dirección: Rivadavia 7900</p>
+                        </div>
+                    </div>
+                    <div class="card bg-secondary">
+                        <h4 class="card-title m-2 pt-1 text-light">Transacciones</h4>
+                        <div class="card-body bg-light py-2 m-1 table-responsive-md">
+                            <table class="table table-sm table-striped">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Fecha</th>
+                                        <th scope="col">Tipo operación</th>
+                                        <th scope="col">Estado</th>
+                                        <th scope="col">Monto</th>
+                                        <th scope="col">Razón</th>
+                                    </tr>
+                                </thead>
+                                <tbody>              
+                                    <tr>
+                                        <th scope="row">10/06/2022 16:00:55</th>
+                                        <td>RETIRO_EFECTIVO_CAJERO_AUTOMATICO</td>
+                                        <td>ACEPTADA</td>
+                                        <td>1000</td>
+                                        <td>Válida</td>
+                                    </tr>              
+                                    <tr>
+                                        <th scope="row">10/06/2022 16:40:55</th>
+                                        <td>RETIRO_EFECTIVO_CAJERO_AUTOMATICO</td>
+                                        <td>ACEPTADA</td>
+                                        <td>11000</td>
+                                        <td>Válida</td>
+                                    </tr>              
+                                    <tr>
+                                        <th scope="row">10/06/2022 16:55:45</th>
+                                        <td>RETIRO_EFECTIVO_CAJERO_AUTOMATICO</td>
+                                        <td>RECHAZADA</td>
+                                        <td>9000</td>
+                                        <td>El monto supera el límite de extracción diario</td>
+                                    </tr>              
+                                    <tr>
+                                        <th scope="row">10/06/2022 16:56:55</th>
+                                        <td>RETIRO_EFECTIVO_CAJERO_AUTOMATICO</td>
+                                        <td>RECHAZADA</td>
+                                        <td>9000</td>
+                                        <td>El monto supera el límite de extracción diario</td>
+                                    </tr>              
+                                    <tr>
+                                        <th scope="row">11/06/2022 16:00:55</th>
+                                        <td>ALTA_TARJETA_CREDITO</td>
+                                        <td>RECHAZADA</td>
+                                        <td>9000</td>
+                                        <td>Ya alcanzó máximo de tarjetas de crédito</td>
+                                    </tr>              
+                                    <tr>
+                                        <th scope="row">12/06/2022 16:00:55</th>
+                                        <td>ALTA_CHEQUERA</td>
+                                        <td>RECHAZADA</td>
+                                        <td>9000</td>
+                                        <td>Ya alcanzó máximo de chequeras</td>
+                                    </tr>              
+                                    <tr>
+                                        <th scope="row">13/06/2022 10:00:00</th>
+                                        <td>COMPRA_DOLAR</td>
+                                        <td>ACEPTADA</td>
+                                        <td>9000</td>
+                                        <td>Válida</td>
+                                    </tr>              
+                                    <tr>
+                                        <th scope="row">14/06/2022 16:00:55</th>
+                                        <td>TRANSFERENCIA_ENVIADA</td>
+                                        <td>RECHAZADA</td>
+                                        <td>100000</td>
+                                        <td>El monto supera el monto de la cuenta</td>
+                                    </tr>              
+                                    <tr>
+                                        <th scope="row">20/06/2022 16:00:55</th>
+                                        <td>TRANSFERENCIA_RECIBIDA</td>
+                                        <td>ACEPTADA</td>
+                                        <td>9000</td>
+                                        <td>Válida</td>
+                                    </tr>              
+                                    <tr>
+                                        <th scope="row">21/06/2022 16:00:55</th>
+                                        <td>TRANSFERENCIA_RECIBIDA</td>
+                                        <td>RECHAZADA</td>
+                                        <td>600000</td>
+                                        <td>El monto supera el límite de recepción</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </body>
+        </html>
+        
