@@ -1,0 +1,11 @@
+-- TODO:
+--  1. Crear tabla tipos cliente, tipos cuenta y marcas tarjera
+--  2. Tarjeta tiene: Numero, CVV, fecha otorgamiento, fecha exporacion, tipo tarjeta
+--  3. Relacionar tarjetas con marca de tarjera (Primary key en marca)
+--  4. Relacionar tarjetas con cliente (Primary key en cliente)
+--  5. Insertar 500 tarjetas de credito
+--  6. Crear tabla direcciones, relacionarla con cliente, empleado, sucursal
+--  7. Insertar 500 direcciones (cliente y empleado pueden tener muchas direcciones, sucursal una)
+--  8. Ampliar cuenta para que tenga tipo de cuenta
+--  9. Asignar tipos de cuenta
+-- 10. Cambiar formato fecha (employee_hire_date en tabla empleado) a YYYY-MM-DD
