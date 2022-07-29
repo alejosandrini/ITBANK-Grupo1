@@ -78,29 +78,41 @@ GROUP by t.tipo_tarjeta;
 --  2. y 5. Insertar 500 tarjetas con www.generatedata.com
 --  Realizado en data-tarjetas.sql
 
---  6. Creacion de tabla de direcciones
-DROP TABLE IF EXISTS direcciones;
-CREATE TABLE direcciones (
-    id_direccion integer PRIMARY KEY,
-    calle text NOT NULL,
-    numero integer NOT NULL,
-    ciudad text NOT NULL, 
-    provincia text NOT NULL,
-    pais text NOT NULL,
-    id_cliente integer,
-    id_empleado integer,
-    id_sucursal integer UNIQUE,
-    CONSTRAINT fk_direcciones
-        FOREIGN KEY (id_cliente)
-        REFERENCES cliente(customet_id), 
-        FOREIGN KEY (id_empleado)
-        REFERENCES empleado(employee_id),
-        FOREIGN KEY (id_sucursal)
-        REFERENCES sucursal(branch_id)
-    );
-
---  7. Insertar 500 direcciones con www.generatedata.com
+--  6. y 7. Insertar 500 direcciones con www.generatedata.com
 --  Realizado en data-direcciones.sql
+
+-- Query para saber cuantas combinaciones hay de direcciones
+SELECT 
+	combinaciones, texto as "tipo de combinacion"
+	FROM (
+		SELECT 
+		count(*) as combinaciones
+		FROM direcciones
+		GROUP by 
+		(id_cliente ISNULL AND id_empleado ISNULL AND id_sucursal IS NOT NULL), -- 1
+		(id_cliente ISNULL AND id_empleado IS NOT NULL AND id_sucursal ISNULL), -- 80
+		(id_cliente IS NOT NULL AND id_empleado ISNULL AND id_sucursal ISNULL), -- 39
+		(id_cliente IS NOT NULL AND id_empleado ISNULL AND id_sucursal IS NOT NULL), -- 24
+		(id_cliente IS NOT NULL AND id_empleado IS NOT NULL AND id_sucursal ISNULL), -- 281
+		(id_cliente ISNULL AND id_empleado IS NOT NULL AND id_sucursal IS NOT NULL), -- 11
+		(id_cliente IS NOT NULL AND id_empleado IS NOT NULL AND id_sucursal IS NOT NULL) --64
+	)
+	INNER JOIN tipo_combinacion
+	WHERE CAST(combinaciones as INTEGER) = cantidad;
+
+DROP TABLE IF EXISTS tipo_combinacion;
+CREATE TABLE tipo_combinacion (
+    texto text NOT NULL,
+    cantidad integer NOT NULL
+);
+INSERT INTO tipo_combinacion (texto, cantidad)
+VALUES  ('Un cliente, un empleado y una sucursal conocen la dirección', 64),
+        ('Ningún cliente conoce la dirección', 11),
+        ('Ninguna sucursal conoce la dirección', 281),
+        ('Ningún empleado conoce la dirección', 24),
+        ('Sólo un cliente conoce la dirección', 39),
+        ('Sólo un empleado conoce la dirección', 80),
+        ('Sólo un sucursal conoce la dirección', 1);
 
 --  8. y 9.
 ALTER TABLE cuenta
