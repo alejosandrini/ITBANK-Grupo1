@@ -54,6 +54,12 @@ CREATE TABLE marcas_tarjeta (
     );
 
 --  2. 3. y 4.
+DROP TABLE IF EXISTS tipo_tarjeta;
+CREATE TABLE tipo_tarjeta (
+    id_tipo_tarjeta integer PRIMARY KEY,
+    tipo text NOT NULL
+);
+
 DROP TABLE IF EXISTS tarjetas;
 CREATE TABLE tarjetas (
     id_tarjeta integer PRIMARY KEY,
@@ -62,19 +68,20 @@ CREATE TABLE tarjetas (
     numero integer NOT NULL UNIQUE,
     CVV integer NOT NULL, 
     fecha_otorgamiento text NOT NULL, 
-    fecha_exporacion text NOT NULL, 
+    fecha_expiracion text NOT NULL, 
     tipo_tarjeta text NOT NULL,
     CONSTRAINT fk_tarjeta
         FOREIGN KEY (id_marca_tarjeta)
         REFERENCES marcas_tarjeta(id_marca_tarjeta), 
         FOREIGN KEY (customer_id)
-        REFERENCES cliente(customer_id)
+        REFERENCES cliente(customer_id),
+        FOREIGN KEY (tipo_tarjeta)
+        REFERENCES tipo_tarjeta(tipo)
     );
 
 --  5. Insertar 500 tarjetas con www.generatedata.com
 
---  6. Pregunta: Como relacionar con cliente, empleado o sucursal? 
---     Poner tres columnas de id?
+--  6. 
 DROP TABLE IF EXISTS direcciones;
 CREATE TABLE direcciones (
     id_direccion integer PRIMARY KEY,
@@ -82,12 +89,22 @@ CREATE TABLE direcciones (
     numero integer NOT NULL,
     ciudad text NOT NULL, 
     provincia text NOT NULL,
-    pais text NOT NULL
+    pais text NOT NULL,
+    id_cliente integer,
+    id_empleado integer,
+    id_sucursal integer UNIQUE,
+    CONSTRAINT fk_direcciones
+        FOREIGN KEY (id_cliente)
+        REFERENCES cliente(customet_id), 
+        FOREIGN KEY (id_empleado)
+        REFERENCES empleado(employee_id),
+        FOREIGN KEY (id_sucursal)
+        REFERENCES sucursal(branch_id)
     );
 
---  7. Pregunta: Para restringir la cantidad de direcciones usamos un trigger?
+--  7. Pregunta: Para restringir la cantidad de direcciones usamos un trigger? no
 
---  8. 9.
+--  8. y 9.
 -- PRAGMA table_info(cuenta);
 -- SELECT name
 -- FROM pragma_table_info('cuenta')
@@ -124,3 +141,40 @@ GROUP BY (id_tipo_cuenta);
 -- SET employee_hire_date = SUBSTR(employee_hire_date,7,4) || '-' ||
 --                          SUBSTR(employee_hire_date,4,2) || '-' || 
 --                          SUBSTR(employee_hire_date,1,2);
+
+
+-- entregar generador de tarjetas y direcciones a parte
+-- 1. Marca de tarjeta, al final es credito o debito?
+-- rta: visa o mastercar por ej, hacer tabla tipo de tarjeta
+
+-- 2. Direcciones, como hacemos para que cliente y empleado tengan múltiples 
+-- direcciones y sucursal una. 
+-- (se me ocurre agregar dirección a sucursal y armar una tabla para el resto)
+-- rta:
+
+-- 3. En la segunda problemática, punto 1 que significa número de sucursal 
+-- es branch_id?
+-- rta: si
+
+-- 4. En la segunda problemática, dice eliminar noel david, pero no existe, 
+-- que hacemos?
+-- rta: agregar un noel david
+--
+-- 5. Tercera problemática, “recordar que en las bases de datos la moneda se 
+-- guarda como integer, en este caso con 2 centavos”, es decir si tenemos 
+-- 30641711 sería 306.417,11
+-- rta: los ultimos dos numeros son los decimales
+--
+-- 6. Tercera problemática, Seleccionar los préstamos que tengan fecha en abril, 
+-- junio y agosto, ordenándolos por importe, primero ordenar por mes o no?
+-- rta: todo mezclado, solo por importe
+
+-- 7. Cuarta problemática, Obtener el promedio de créditos otorgado por sucursal,
+--  créditos se refiere a préstamos de los clientes de cada sucursal?
+-- rta: si
+
+-- 8. En la cuarta problemática, “Mediante índices mejorar la performance la 
+-- búsqueda de clientes por DNI”
+-- rta: solo crear el indice por dni
+-- create UNIQUE index idx_contacts_email
+-- on cliente (customer_DNI);
