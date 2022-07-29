@@ -3,7 +3,7 @@
 -- Listo 2. Tarjeta tiene: Numero, CVV, fecha otorgamiento, fecha exporacion, tipo tarjeta
 -- Listo 3. Relacionar tarjetas con marca de tarjera (Primary key en marca)
 -- Listo 4. Relacionar tarjetas con cliente (Primary key en cliente)
---  5. Insertar 500 tarjetas de credito
+-- Listo 5. Insertar 500 tarjetas de credito
 -- Listo 6. Crear tabla direcciones, relacionarla con cliente, empleado, sucursal
 --  7. Insertar 500 direcciones (cliente y empleado pueden tener muchas direcciones, sucursal una)
 -- Listo 8. Ampliar cuenta para que tenga tipo de cuenta
@@ -128,6 +128,8 @@ CREATE TABLE direcciones (
 --  8. y 9.
 -- ALTER TABLE cuenta
 -- ADD COLUMN id_tipo_cuenta integer NOT NULL default(1);
+-- ALTER TABLE cliente
+-- ADD COLUMN id_tipo_cliente integer NOT NULL default(1);
 
 UPDATE cuenta
 SET id_tipo_cuenta = 3
@@ -142,6 +144,24 @@ FROM cuenta as c
 INNER JOIN tipos_cuenta as tc
 WHERE c.id_tipo_cuenta = tc.id_tipo_cuenta
 GROUP BY (c.id_tipo_cuenta);
+
+UPDATE cliente
+SET id_tipo_cliente = 3
+WHERE CAST(SUBSTR(dob,1,4) as INT) <= 1955;
+
+UPDATE cliente
+SET id_tipo_cliente = 2
+WHERE CAST(SUBSTR(dob,1,4) as INT) < 1985 AND CAST(SUBSTR(dob,1,4) as INT) > 1955;
+
+SELECT count(customer_id) -- 135
+FROM cliente
+WHERE CAST(SUBSTR(dob,1,4) as INT) <= 1955;
+SELECT count(customer_id) -- 215
+FROM cliente
+WHERE CAST(SUBSTR(dob,1,4) as INT) < 1985 AND CAST(SUBSTR(dob,1,4) as INT) > 1955;
+SELECT count(customer_id) -- 150
+FROM cliente
+WHERE CAST(SUBSTR(dob,1,4) as INT) >= 1985;
 
 -- 10.
 -- UPDATE empleado
