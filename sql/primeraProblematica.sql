@@ -27,20 +27,12 @@ VALUES ("CLASSIC", 0, 0, 1),
 DROP TABLE IF EXISTS tipos_cuenta;
 CREATE TABLE tipos_cuenta (
     id_tipo_cuenta integer PRIMARY KEY,
-    tipo text NOT NULL,
-    id_tipo_cliente integer NOT NULL,
-    CONSTRAINT fk_cuenta
-        FOREIGN KEY (id_tipo_cliente)
-        REFERENCES tipos_cliente(id_tipo_cliente)
+    tipo text NOT NULL
     );
-INSERT INTO tipos_cuenta (tipo, id_tipo_cliente)
-VALUES ("Caja ahorro pesos", 1),
-    ("Caja ahorro pesos", 2),
-    ("Caja ahorro pesos", 3),
-    ("Caja ahorro dolares", 2),
-    ("Caja ahorro dolares", 3),
-    ("Cuenta corriente", 2),
-    ("Cuenta corriente", 3);
+INSERT INTO tipos_cuenta (tipo)
+VALUES  ("Caja ahorro pesos"),
+        ("Caja ahorro dolares"),
+        ("Cuenta corriente");
 
 DROP TABLE IF EXISTS restricciones_tipo_cliente;
 CREATE TABLE restricciones_tipo_cliente (
@@ -64,6 +56,8 @@ CREATE TABLE marcas_tarjeta (
     id_marca_tarjeta integer PRIMARY KEY,
     marca text NOT NULL
     );
+INSERT INTO marcas_tarjeta (marca)
+VALUES ('VISA'), ('MASTERCARD'), ('AMERICAN EXPRESS');
 
 --  2. 3. y 4.
 DROP TABLE IF EXISTS tipo_tarjeta;
@@ -71,27 +65,42 @@ CREATE TABLE tipo_tarjeta (
     id_tipo_tarjeta integer PRIMARY KEY,
     tipo text NOT NULL
 );
+INSERT INTO tipo_tarjeta (tipo)
+VALUES ('CREDITO'), ('DEBITO');
 
-DROP TABLE IF EXISTS tarjetas;
-CREATE TABLE tarjetas (
-    id_tarjeta integer PRIMARY KEY,
-    id_marca_tarjeta integer NOT NULL,
-    customer_id integer NOT NULL,
-    numero integer NOT NULL UNIQUE,
-    CVV integer NOT NULL, 
-    fecha_otorgamiento text NOT NULL, 
-    fecha_expiracion text NOT NULL, 
-    tipo_tarjeta text NOT NULL,
-    CONSTRAINT fk_tarjeta
-        FOREIGN KEY (id_marca_tarjeta)
-        REFERENCES marcas_tarjeta(id_marca_tarjeta), 
-        FOREIGN KEY (customer_id)
-        REFERENCES cliente(customer_id),
-        FOREIGN KEY (tipo_tarjeta)
-        REFERENCES tipo_tarjeta(tipo)
-    );
+-- DROP TABLE IF EXISTS tarjetas;
+-- CREATE TABLE tarjetas (
+--     id_tarjeta integer PRIMARY KEY,
+--     id_marca_tarjeta integer NOT NULL,
+--     customer_id integer NOT NULL,
+--     numero integer NOT NULL UNIQUE,
+--     CVV integer NOT NULL, 
+--     fecha_otorgamiento text NOT NULL, 
+--     fecha_expiracion text NOT NULL, 
+--     tipo_tarjeta text NOT NULL,
+--     CONSTRAINT fk_tarjeta
+--         FOREIGN KEY (id_marca_tarjeta)
+--         REFERENCES marcas_tarjeta(id_marca_tarjeta), 
+--         FOREIGN KEY (customer_id)
+--         REFERENCES cliente(customer_id),
+--         FOREIGN KEY (tipo_tarjeta)
+--         REFERENCES tipo_tarjeta(id_tipo_tarjeta)
+--     );
+
+SELECT t.id_marca_tarjeta, marca, count(t.id_marca_tarjeta) 
+FROM tarjetas as t
+INNER JOIN marcas_tarjeta as mt
+WHERE t.id_marca_tarjeta = mt.id_marca_tarjeta
+GROUP by t.id_marca_tarjeta;
+
+SELECT t.tipo_tarjeta, tipo, count(t.tipo_tarjeta) 
+FROM tarjetas as t
+INNER JOIN tipo_tarjeta
+WHERE t.tipo_tarjeta = id_tipo_tarjeta
+GROUP by t.tipo_tarjeta;
 
 --  5. Insertar 500 tarjetas con www.generatedata.com
+--  Realizado en data-tarjetas.sql
 
 --  6. 
 DROP TABLE IF EXISTS direcciones;
@@ -114,27 +123,11 @@ CREATE TABLE direcciones (
         REFERENCES sucursal(branch_id)
     );
 
---  7. Pregunta: Para restringir la cantidad de direcciones usamos un trigger? no
+--  7. 
 
 --  8. y 9.
--- PRAGMA table_info(cuenta);
--- SELECT name
--- FROM pragma_table_info('cuenta')
--- WHERE name = 'id_tipo_cuenta';
--- IF EXISTS (
---     SELECT name
---     FROM pragma_table_info('cuenta')
---     WHERE name = 'id_tipo_cuenta'
--- )
--- BEGIN
---     ALTER TABLE cuenta
---     DROP COLUMN id_tipo_cuenta
--- END;
-
 -- ALTER TABLE cuenta
 -- ADD COLUMN id_tipo_cuenta integer NOT NULL default(1);
--- Se debe ejecutar solo una vez ya que no se puede hacer drop column if exists
--- Ver https://www.sqlitetutorial.net/sqlite-alter-table/
 
 UPDATE cuenta
 SET id_tipo_cuenta = 3
@@ -144,9 +137,11 @@ UPDATE cuenta
 SET id_tipo_cuenta = 2
 WHERE length(iban) > 22 AND balance > 0;
 
-SELECT id_tipo_cuenta, count(id_tipo_cuenta)
-FROM cuenta
-GROUP BY (id_tipo_cuenta);
+SELECT c.id_tipo_cuenta, tipo, count(c.id_tipo_cuenta)
+FROM cuenta as c
+INNER JOIN tipos_cuenta as tc
+WHERE c.id_tipo_cuenta = tc.id_tipo_cuenta
+GROUP BY (c.id_tipo_cuenta);
 
 -- 10.
 -- UPDATE empleado
