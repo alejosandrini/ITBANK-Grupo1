@@ -4,7 +4,7 @@
 -- Listo 3. Relacionar tarjetas con marca de tarjera (Primary key en marca)
 -- Listo 4. Relacionar tarjetas con cliente (Primary key en cliente)
 --  5. Insertar 500 tarjetas de credito
---  6. Crear tabla direcciones, relacionarla con cliente, empleado, sucursal
+-- Listo 6. Crear tabla direcciones, relacionarla con cliente, empleado, sucursal
 --  7. Insertar 500 direcciones (cliente y empleado pueden tener muchas direcciones, sucursal una)
 -- Listo 8. Ampliar cuenta para que tenga tipo de cuenta
 -- Listo 9. Asignar tipos de cuenta
@@ -29,23 +29,35 @@ CREATE TABLE tipos_cuenta (
     id_tipo_cuenta integer PRIMARY KEY,
     tipo text NOT NULL,
     id_tipo_cliente integer NOT NULL,
+    CONSTRAINT fk_cuenta
+        FOREIGN KEY (id_tipo_cliente)
+        REFERENCES tipos_cliente(id_tipo_cliente)
+    );
+INSERT INTO tipos_cuenta (tipo, id_tipo_cliente)
+VALUES ("Caja ahorro pesos", 1),
+    ("Caja ahorro pesos", 2),
+    ("Caja ahorro pesos", 3),
+    ("Caja ahorro dolares", 2),
+    ("Caja ahorro dolares", 3),
+    ("Cuenta corriente", 2),
+    ("Cuenta corriente", 3);
+
+DROP TABLE IF EXISTS restricciones_tipo_cliente;
+CREATE TABLE restricciones_tipo_cliente (
+    id_tipo_cliente integer NOT NULL UNIQUE,
     limite_extraccion_diario decimal NOT NULL,
     limite_transferencia_recibida decimal,
     monto decimal NOT NULL,
     costo_transferencias decimal NOT NULL,
     saldo_descubierto_disponible decimal NOT NULL,
-    CONSTRAINT fk_cuenta
+    CONSTRAINT fk_restricciones_tipo_cliente
         FOREIGN KEY (id_tipo_cliente)
         REFERENCES tipos_cliente(id_tipo_cliente)
     );
-INSERT INTO tipos_cuenta (tipo, id_tipo_cliente, limite_extraccion_diario, limite_transferencia_recibida, monto, costo_transferencias, saldo_descubierto_disponible)
-VALUES ("Caja ahorro pesos", 1, 10000,150000,0,0.1,0),
-    ("Caja ahorro pesos", 2, 20000,500000,0,0.05,10000),
-    ("Caja ahorro pesos", 3, 100000, NULL, 0, 0, 10000),
-    ("Caja ahorro dolares", 2, 20000,500000,0,0.05,10000),
-    ("Caja ahorro dolares", 3, 100000, NULL, 0, 0, 10000),
-    ("Cuenta corriente", 2, 20000,500000,0,0.05,10000),
-    ("Cuenta corriente", 3, 100000, NULL, 0, 0, 10000);
+INSERT INTO restricciones_tipo_cliente (id_tipo_cliente, limite_extraccion_diario, limite_transferencia_recibida, monto, costo_transferencias, saldo_descubierto_disponible)
+VALUES  (1, 10000,150000,0,0.1,0),
+        (2,20000,500000,0,0.05,10000),
+        (3, 100000, NULL, 0, 0, 10000);
 
 DROP TABLE IF EXISTS marcas_tarjeta;
 CREATE TABLE marcas_tarjeta (
