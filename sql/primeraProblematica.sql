@@ -77,6 +77,12 @@ GROUP by t.tipo_tarjeta;
 
 --  2. y 5. Insertar 500 tarjetas con www.generatedata.com
 --  Realizado en data-tarjetas.sql
+-- Query para contar cantidad personas que tienen X cantidad de tarjetas
+SELECT cantidad_tarjetas, count(cantidad_tarjetas) as cantidad_personas
+FROM(SELECT count(customer_id) as cantidad_tarjetas
+	FROM tarjetas
+	GROUP BY (customer_id))
+GROUP BY (cantidad_tarjetas);
 
 --  6. y 7. Insertar 500 direcciones con www.generatedata.com
 --  Realizado en data-direcciones.sql
