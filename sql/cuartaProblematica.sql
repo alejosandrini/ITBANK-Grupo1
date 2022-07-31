@@ -1,9 +1,5 @@
 -- TODO:
 -- 2. Revisar, esperar respuesta
--- 5. Crear tabla auditoria_cuenta, campos: old_id, new_id, old_balance,
--- new_balance, old_iban, new_iban, old_type, new_type, user_action, created_at
--- Crear trigger que al despues de actualizar en tabla cuentas registrar en tabla creada
--- Restar $100 a las cuentas 10,11,12,13,14
 -- 7. Crear tabla movimientos, campos: identificación del movimiento,
 -- número de cuenta, monto, tipo de operación y hora
 --  Mediante el uso de transacciones, hacer una transferencia de 1000$
@@ -56,6 +52,37 @@ ON c.branch_id = s.branch_id
 GROUP BY c.branch_id
 ORDER BY c.branch_id;
 
+-- 5. Crear tabla auditoria_cuenta y trigger cuando se modifique tabla cuenta
+DROP TABLE IF EXISTS auditoria_cuenta;
+CREATE TABLE auditoria_cuenta (
+    old_id integer, 
+    new_id integer, 
+    old_balance integer,
+    new_balance integer, 
+    old_iban text, 
+    new_iban text, 
+    old_type integer, 
+    new_type integer, 
+    user_action text,
+    created_at date
+);
+
+CREATE TRIGGER IF NOT EXISTS cuenta_registro_cambios
+AFTER UPDATE ON cuenta
+WHEN old.balance <> new.balance or old.iban <> new.iban or old.id_tipo_cuenta <> new.id_tipo_cuenta
+BEGIN
+    INSERT INTO auditoria_cuenta(old_id, new_id, old_balance, new_balance, old_iban, 
+            new_iban, old_type, new_type, user_action,created_at)
+    VALUES (old.customer_id, new.customer_id, old.balance, new.balance, old.iban,
+            new.iban, old.id_tipo_cuenta, new.id_tipo_cuenta, 'UPDATE', DATETIME('NOW'));
+END;
+
+UPDATE cuenta
+SET balance = balance - 100
+WHERE account_id BETWEEN 10 AND 14;
+
 -- 6. Indice de DNI en cliente
 create UNIQUE index idx_contacts_email
 on cliente(customer_DNI);
+
+-- 7. 
