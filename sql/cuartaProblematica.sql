@@ -1,11 +1,9 @@
 -- TODO:
 -- 2. Revisar, esperar respuesta
--- 4. Obtener promedio de creditos otorgados por sucursal
 -- 5. Crear tabla auditoria_cuenta, campos: old_id, new_id, old_balance,
 -- new_balance, old_iban, new_iban, old_type, new_type, user_action, created_at
 -- Crear trigger que al despues de actualizar en tabla cuentas registrar en tabla creada
 -- Restar $100 a las cuentas 10,11,12,13,14
--- 6. Indice de DNI en clientes
 -- 7. Crear tabla movimientos, campos: identificación del movimiento,
 -- número de cuenta, monto, tipo de operación y hora
 --  Mediante el uso de transacciones, hacer una transferencia de 1000$
@@ -44,3 +42,20 @@ ON c.branch_id = s.branch_id
 WHERE tipo_tarjeta = 1
 GROUP BY t.id_marca_tarjeta, c.branch_id
 ORDER BY c.branch_id, Cantidad_tarjetas DESC;
+
+-- 4. Obtener promedio de creditos(prestamos) otorgados por sucursal
+SELECT c.branch_id, s.branch_name, 
+    count(*) as Cantidad_prestamos, 
+    CAST(sum(p.loan_total) as REAL)/100 as Total,
+    ROUND(avg(loan_total)/100, 2) as Promedio
+FROM prestamo as p
+INNER JOIN cliente as c
+ON p.customer_id = c.customer_id
+INNER JOIN sucursal as s
+ON c.branch_id = s.branch_id
+GROUP BY c.branch_id
+ORDER BY c.branch_id;
+
+-- 6. Indice de DNI en cliente
+create UNIQUE index idx_contacts_email
+on cliente(customer_DNI);
