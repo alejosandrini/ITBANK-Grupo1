@@ -1,6 +1,3 @@
--- TODO:
--- 2. Revisar, esperar respuesta
-
 -- 1. Listar cantidad de clientes por sucursal descendiente
 SELECT c.branch_id, s.branch_name as Sucursal,
     count(c.branch_id) as Cantidad_clientes
@@ -11,6 +8,7 @@ GROUP BY c.branch_id
 ORDER BY Cantidad_clientes DESC;
 
 -- 2. Obtener cantidad de empleados por cliente por sucursal
+-- Query para obtener solo la cantidad de empleados
 SELECT e.branch_id, s.branch_name as Sucursal,
     count(e.branch_id) as Cantidad_empleados
 FROM empleado as e
@@ -19,6 +17,7 @@ ON e.branch_id = s.branch_id
 GROUP BY e.branch_id
 ORDER BY Cantidad_empleados DESC;
 
+-- Query para obtener empleados por cliente por sucursal
 SELECT c.branch_id, Sucursal, Cantidad_empleados, 
     count(c.branch_id) as Cantidad_clientes,
     round(CAST(Cantidad_empleados as real)/ count(c.branch_id),2) as Empleado_por_cliente
@@ -51,7 +50,7 @@ GROUP BY t.id_marca_tarjeta, c.branch_id
 ORDER BY c.branch_id, Cantidad_tarjetas DESC;
 
 -- 4. Obtener promedio de creditos(prestamos) otorgados por sucursal
-SELECT c.branch_id, s.branch_name, 
+SELECT c.branch_id, s.branch_name as Sucursal, 
     count(*) as Cantidad_prestamos, 
     CAST(sum(p.loan_total) as REAL)/100 as Total,
     ROUND(avg(loan_total)/100, 2) as Promedio
@@ -66,16 +65,16 @@ ORDER BY c.branch_id;
 -- 5. Crear tabla auditoria_cuenta y trigger cuando se modifique tabla cuenta
 DROP TABLE IF EXISTS auditoria_cuenta;
 CREATE TABLE auditoria_cuenta (
-    old_id integer, 
-    new_id integer, 
-    old_balance integer,
-    new_balance integer, 
-    old_iban text, 
-    new_iban text, 
-    old_type integer, 
-    new_type integer, 
-    user_action text,
-    created_at date
+    old_id integer NOT NULL, 
+    new_id integer NOT NULL, 
+    old_balance integer NOT NULL,
+    new_balance integer NOT NULL, 
+    old_iban text NOT NULL, 
+    new_iban text NOT NULL, 
+    old_type integer NOT NULL, 
+    new_type integer NOT NULL, 
+    user_action text NOT NULL,
+    created_at date NOT NULL
 );
 
 CREATE TRIGGER IF NOT EXISTS cuenta_registro_cambios
