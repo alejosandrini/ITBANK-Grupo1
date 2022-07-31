@@ -19,6 +19,23 @@ ON e.branch_id = s.branch_id
 GROUP BY e.branch_id
 ORDER BY Cantidad_empleados DESC;
 
+SELECT c.branch_id, Sucursal, Cantidad_empleados, 
+    count(c.branch_id) as Cantidad_clientes,
+    round(CAST(Cantidad_empleados as real)/ count(c.branch_id),2) as Empleado_por_cliente
+FROM (
+    SELECT e.branch_id as id, s.branch_name as Sucursal,
+        count(e.branch_id) as Cantidad_empleados
+    FROM empleado as e
+    INNER JOIN sucursal as s
+    ON e.branch_id = s.branch_id
+    GROUP BY e.branch_id
+    ORDER BY Cantidad_empleados DESC
+    )
+INNER JOIN cliente as c
+ON c.branch_id = id
+GROUP BY c.branch_id
+ORDER BY Cantidad_clientes, Cantidad_empleados DESC;
+
 -- 3. Obtener cantidad de tarjetas de credito por tipo por sucursal
 SELECT c.branch_id, s.branch_name as Sucursal, 
     mt.marca, count(t.id_marca_tarjeta) as Cantidad_tarjetas
