@@ -15,7 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from Base import views as baseView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', baseView.index, name="index"),
+    path('bank/', baseView.bank, name="bank"),
+    path('cotizacion/', baseView.cotizacion, name="cotizacion"),
+    
 ]
