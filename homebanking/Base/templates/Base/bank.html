@@ -1,5 +1,24 @@
 {% extends "base/base.html" %}
 
+{% block header %}
+  <div class="container-fluid">
+    <a class="navbar-brand" href="{% url 'bank' %}">
+    <img src="../../static/Base/Images/Logo/ITBANK.png" alt="" width="150" height="75" class="d-inline-block align-text-top">
+    </a>
+    <button class="navbar-toggler bg-success" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon navbar-dark"></span>
+    </button>
+    <div class="collapse navbar-collapse mb-2 w-100" id="navbarNavAltMarkup">
+        <div class="navbar-nav w-100 d-flex">
+            <a href="{% url 'bank' %}" class="nav-link fs-5 fw-bolder text-success pe-3">Datos y operaciones</a>
+            <a href="{% url 'cotizacion' %}" class="nav-link fs-5 fw-bolder text-success px-3">Cotización dolar</a>
+            <a href="{% url 'index' %}" class="nav-link fs-5 fw-bolder text-success ms-md-auto">Cerrar Sesión</a>
+        </div>
+    </div>          
+  </div> 
+{% endblock %}
+
+
 {% block content %}
   <!-- CONTAINER PRINCIPAL -->
   <div class="container-fluid bg-success">
@@ -204,19 +223,8 @@
                   <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                   <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
                 </div>
-                <div class="mb-3">
-                  <label for="exampleInputPassword1" class="form-label">Password</label>
-                  <input type="password" class="form-control" id="exampleInputPassword1">
-                  <span id="passwordHelpInline" class="form-text">
-                    Must be 8-20 characters long.
-                  </span>
-                </div>
-                <div class="mb-3 form-check">
-                  <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                  <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                </div>
-                <a class="btn btn-light btn-outline-success btn-lg shadow-lg" href="./bank.html"
-                  role="button">LOGIN
+                <a class="btn btn-light btn-outline-success btn-lg shadow-lg" href=""
+                  role="button">Chequear puntos
                 </a>
               </form>
             </div>
