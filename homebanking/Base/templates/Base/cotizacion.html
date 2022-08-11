@@ -10,9 +10,9 @@
   </button>
   <div class="collapse navbar-collapse mb-2 w-100" id="navbarNavAltMarkup">
       <div class="navbar-nav w-100 d-flex">
-          <a href="{% url 'bank' %}" class="nav-link fs-5 fw-bolder text-success pe-3">Datos y operaciones</a>
-          <a href="{% url 'cotizacion' %}" class="nav-link fs-5 fw-bolder text-success px-3">Cotización dolar</a>
-          <a href="{% url 'index' %}" class="nav-link fs-5 fw-bolder text-success ms-md-auto">Cerrar Sesión</a>
+          <a href="{% url 'bank' %}" class="nav-link fs-5 fw-bolder text-success pe-md-3">Datos y operaciones</a>
+          <a href="{% url 'cotizacion' %}" class="nav-link fs-5 fw-bolder text-success px-md-3">Cotización dolar</a>
+          <a href="{% url 'index' %}" class="nav-link fs-5 fw-bolder text-light ms-md-auto bg-success">Cerrar Sesión</a>
       </div>
   </div>          
   </div> 
@@ -20,7 +20,9 @@
 
 {% block content %}
   <div class="container-fluid">
-      <div class="row" id="contenido"></div>
+      <div class="row" id="contenido">
+        <!-- Contenido generado en el main.js -->
+      </div>
   </div>
 {% endblock %}
 {% block js %}
