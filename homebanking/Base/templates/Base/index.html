@@ -11,20 +11,18 @@
     aria-label="Toggle navigation">
     <span class="fa fa-chevron-down" style="color:white;"></span>
   </button>
-  <div class="collapse navbar-collapse mb-2 position-relative collapseInicioSesion" id="navbarSupportedContent">
-    <a href="#inicioSesion">
+  <div class="navbar-collapse mb-2 position-relative" id="navbarSupportedContent">
       <button class="btn btn-dark btn-outline-success btn-lg shadow-lg text-light position-absolute top-50 end-0 translate-middle-y" type="button"
         data-bs-toggle="collapse" data-bs-target=".collapseInicioSesion" aria-expanded="false"
-        aria-controls="collapseExample">
+        aria-controls="collapseExample"> 
         HOMEBANKING
       </button>
-    </a>
   </div>
 </div>
 {% endblock %}
 {% block inicioSesion %}
-  <div class="collapse collapseInicioSesion" id="collapseInicioSesion">
-    <div class="row d-flex justify-content-center" id="inicioSesion">
+  <div class="collapse collapseInicioSesion">
+    <div class="row d-flex justify-content-center">
       <div class="col-12 bg-success p-5 d-flex justify-content-center">
         <form>
           <div class="mb-3">
@@ -51,7 +49,7 @@
       </div>
       <div class="container-fluid bg-dark d-flex justify-content-center">
         <button class="navbar-toggler bg-dark" type="button" data-bs-toggle="collapse"
-        data-bs-target="#collapseInicioSesion" aria-controls="navbarSupportedContent" aria-expanded="false"
+        data-bs-target=".collapseInicioSesion" aria-controls="navbarSupportedContent" aria-expanded="false"
         aria-label="Toggle navigation">
           <span class="fa fa-chevron-up p-2 vw-100" style="color:white;"></span>
         </button>
