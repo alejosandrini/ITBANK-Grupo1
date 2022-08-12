@@ -21,20 +21,28 @@ function generarCompra(dato){
     let icono = '$';
     if(dato.compra.match(valoresAceptados)==null){
         icono = ''
-        console.log(dato.compra)
-        console.log('match: '+dato.compra.match(valoresAceptados))
+    }else{
+        let posicionDecimales = dato.compra.indexOf(',')
+        dato.compra = dato.compra.substring(0, posicionDecimales+3)
     }
-    return `<div class="col-sm-6">
+    return `
                         <p class="card-text m-0">COMPRA</p>
                         <h4 class="fw-bold m-0" id="valorCompra">${icono}${dato.compra}</h4>
-                    </div>`
+           `
 }
 
 function generarVenta(dato){
-    return `<div class="col-sm-6">
+    let icono = '$';
+    if(dato.venta.match(valoresAceptados)==null){
+        icono = ''
+    }else{
+        let posicionDecimales = dato.venta.indexOf(',')
+        dato.venta = dato.venta.substring(0, posicionDecimales+3)
+    }
+    return `
                         <p class="card-text m-0">VENTA</p>
-                        <h4 class="fw-bold m-0" id="valorVenta">$${dato.venta}</h4>
-                    </div>`
+                        <h4 class="fw-bold m-0" id="valorVenta">${icono}${dato.venta}</h4>
+           `
 }
 
 function generarVariacion(dato){
@@ -49,10 +57,11 @@ function generarVariacion(dato){
         signo = '+';
         estilo = 'style="color:green;"';
     }
-
-    return `<div class="card-body bg-white ">
+    let posicionDecimales = dato.variacion.indexOf(',')
+    dato.variacion = dato.variacion.substring(0, posicionDecimales+3)
+    return `
         <p class="card-text" id="variacion"><span class="fa ${icono}" ${estilo}></span> VARIACIÓN ${signo}${dato.variacion}%</p>
-    </div>`
+            `
 }
 
 function obtenerMinutos(fecha){
@@ -64,27 +73,41 @@ function actualizar(){
     return `ACTUALIZADO ${fecha.getDate()}/${fecha.getMonth()}/${fecha.getFullYear()} ${fecha.getHours()}:${obtenerMinutos(fecha)} `
 }
 
+function generarNombre(dato){
+    return `
+                    <span class="fa fa-money" style="color:white;"></span> ${dato.nombre}
+           `
+}
+
 let contenido = document.getElementById('contenido');
 
-function imprimirCard(dato){
+function imprimirCard(dato, numeroCard){
     let card = document.createElement('div');
     card.classList.add('col-md-4');
     card.classList.add('my-1');
     card.innerHTML= `
         <div class="card bg-success text-center h-100">
             <div class="h-100 px-1">
-                <h3 class="card-title text-white position-relative top-50 translate-middle-y">
-                    <span class="fa fa-money" style="color:white;"></span> ${dato.nombre}
+                <h3 class="card-title text-white position-relative top-50 translate-middle-y nombre">
+                    ${generarNombre(dato)}
                 </h3>
             </div>
             <div class="card-body bg-secondary">
                 <div class="row">
-                    ${generarCompra(dato)}
-                    ${generarVenta(dato)}
+                    <div class="col-sm-6 compra">
+                        ${generarCompra(dato)}
+                    </div>
+                    <div class="col-sm-6 venta">
+                        ${generarVenta(dato)}
+                    </div>
                 </div>
             </div>
-            ${generarVariacion(dato)}
-            <p class="text-white" id="ultimaActualizacion">${actualizar()}</p>
+            <div class="card-body bg-white variacion">
+                ${generarVariacion(dato)}
+            </div>
+            <p class="text-white actualizacion" id="ultimaActualizacion">
+                ${actualizar()}
+            </p>
         </div>`
     contenido.appendChild(card);
 }
@@ -103,8 +126,35 @@ function llamadoAPI(){
 }
 llamadoAPI();
 setInterval(()=>{
-    while (contenido.hasChildNodes()) {
-        contenido.removeChild(contenido.firstChild);
-    }
-    llamadoAPI();
+    fetch('https://www.dolarsi.com/api/api.php?type=valoresprincipales')
+    .then(response => response.json())
+    .then(data => {
+        let datos = data.map(x=>reducirInformacion(x)).filter(y=>esDolar(y));
+        actualizarDatos(datos);
+    })
+    console.log('Se actualizaron los datos!')
 },120000);//Se actualiza cada dos minutos
+
+function actualizarDatos(datos){
+    let cantidadCards = document.querySelectorAll("div.card").length;
+    console.log("Cantidad de cards = ", cantidadCards)
+    console.log("Cantidad de datos = ", datos.length)
+    if (cantidadCards!=datos.length){ 
+        //por si la API nos devuelve un elemento nuevo, genera todas las cartas de nuevo
+        llamadoAPI();
+    }else{
+        //si es la misma cantidad, se actualizan solo los datos
+        let nombres = document.getElementsByClassName("nombre");
+        let compras = document.getElementsByClassName("compra");
+        let ventas = document.getElementsByClassName("venta");
+        let variaciones = document.getElementsByClassName("variacion");
+        let actualizaciones = document.getElementsByClassName("actualizacion");
+        for(let i in datos){
+            nombres.item(i).innerHTML = generarNombre(datos[i]);
+            compras.item(i).innerHTML = generarCompra(datos[i]);
+            ventas.item(i).innerHTML = generarVenta(datos[i]);
+            variaciones.item(i).innerHTML = generarVariacion(datos[i]);
+            actualizaciones.item(i).innerHTML = actualizar();
+        }
+    }
+}
