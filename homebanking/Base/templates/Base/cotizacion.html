@@ -1,9 +1,10 @@
 {% extends "base/base.html" %}
+{% load static %}
 
 {% block header %}
   <div class="container-fluid">
   <a class="navbar-brand" href="{% url 'bank' %}">
-  <img src="../../static/Base/Images/Logo/ITBANK.png" alt="" width="150" height="75" class="d-inline-block align-text-top">
+  <img src="{% static 'Base/Images/Logo/ITBANK.png' %}" alt="" width="150" height="75" class="d-inline-block align-text-top">
   </a>
   <button class="navbar-toggler bg-success" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon navbar-dark"></span>
@@ -26,5 +27,5 @@
   </div>
 {% endblock %}
 {% block js %}
-  <script src = '../../static/Base/js/main.js'></script>
+  <script src = "{% static 'Base/js/main.js' %}"></script>
 {% endblock %}

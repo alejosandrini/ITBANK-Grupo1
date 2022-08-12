@@ -1,9 +1,10 @@
 {% extends "base/base.html" %}
+{% load static %}
 
 {% block header %}
   <div class="container-fluid">
     <a class="navbar-brand" href="{% url 'bank' %}">
-    <img src="../../static/Base/Images/Logo/ITBANK.png" alt="" width="150" height="75" class="d-inline-block align-text-top">
+    <img src="{% static 'Base/Images/Logo/ITBANK.png' %}" alt="" width="150" height="75" class="d-inline-block align-text-top">
     </a>
     <button class="navbar-toggler bg-success" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon navbar-dark"></span>
@@ -97,7 +98,7 @@
       <div class="col-4 col-lg-2 g-5">
         <a class="btn btn-light btn-outline-secondary btn-lg shadow-lg " data-bs-toggle="collapse"
           data-bs-target="#transferencia" aria-expanded="false" aria-controls="transferencia" href="#" role="button">
-          <img src="../../static/Base/Images/transfer.png" class="img-fluid">
+          <img src="{% static 'Base/Images/transfer.png' %}" class="img-fluid">
         </a>
         Transferencias
       </div>
@@ -108,7 +109,7 @@
         <a class="btn btn-light btn-outline-secondary btn-lg shadow-lg " data-bs-toggle="collapse"
           data-bs-target="#prestamo" aria-expanded="false" aria-controls="prestamo" href="#" role="button" href="#"
           role="button">
-          <img src="../../static/Base/Images/deal.png" class="img-fluid">
+          <img src="{% static 'Base/Images/deal.png' %}" class="img-fluid">
         </a>
         Préstamos
       </div>
@@ -119,7 +120,7 @@
         <a class="btn btn-light btn-outline-secondary btn-lg shadow-lg" data-bs-toggle="collapse"
           data-bs-target="#support" aria-expanded="false" aria-controls="support" href="#" role="button" href="#"
           role="button">
-          <img src="../../static/Base/Images/chat.png" class="img-fluid">
+          <img src="{% static 'Base/Images/chat.png' %}" class="img-fluid">
         </a>
         Soporte
       </div>
@@ -130,7 +131,7 @@
         <a class="btn btn-light btn-outline-secondary btn-lg shadow-lg" data-bs-toggle="collapse"
           data-bs-target="#puntos" aria-expanded="false" aria-controls="puntos" href="#" role="button" href="#"
           role="button">
-          <img src="../../static/Base/Images/club.png" class="img-fluid">
+          <img src="{% static 'Base/Images/club.png' %}" class="img-fluid">
         </a>
         Tus puntos
       </div>

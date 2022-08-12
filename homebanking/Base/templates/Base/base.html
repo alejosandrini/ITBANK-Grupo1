@@ -5,8 +5,9 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="//code.jquery.com/jquery.min.js"></script>
-        <title>Bootstrap demo</title>
-        <link rel="stylesheet" href="../../static/Base/css/custom.css">
+        <title>ITBANK</title>
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'Base/css/custom.css' %}">
         <!-- Font Awesome CSS -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
       
@@ -40,7 +41,7 @@
                     <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4 mt-3">
                     <!-- Content -->
                     <h6 class="text-uppercase fw-bold mb-4 my-5">
-                        <img src="../../static/Base/Images/Logo/ITBANK-blanco.png" alt="" width="150" height="53"
+                        <img src="{% static 'Base/Images/Logo/ITBANK-blanco.png' %}" alt="" width="150" height="53"
                         class="d-inline-block align-text-top">
                     </h6>
                     <p class="text-white">
