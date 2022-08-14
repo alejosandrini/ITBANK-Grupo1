@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<form action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label text-white">Correo</label>
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                <div id="emailHelp" class="form-text text-white-50">No compartiremos tu correo con nadie.</div>
+      
+              </div>
+              <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label text-white">Contraseña</label>
+                <input type="password" class="form-control" id="exampleInputPassword1">
+                <span id="passwordHelpInline" class="form-text text-white-50">
+                  Debe tener entre 8 y 20 caracteres.
+                </span>
+              </div>
+              <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                <label class="form-check-label text-white" for="exampleCheck1">Cerrar sesión automáticamente</label>
+              </div>
+              <button class="btn btn-success btn-outline-light btn-lg shadow-lg" type="submit">Ingresar</button>
+      
+</form>
+{% endblock %}
