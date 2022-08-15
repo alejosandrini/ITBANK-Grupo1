@@ -8,15 +8,15 @@
   </a>
   <button class="navbar-toggler bg-dark" type="button" data-bs-toggle="collapse"
     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-    aria-label="Toggle navigation">
+    aria-label="Toggle navigation" id="botonCollapse">
     <span class="fa fa-chevron-down" style="color:white;"></span>
   </button>
-  <div class="navbar-collapse mb-2 position-relative" id="navbarSupportedContent">
-      <button class="btn btn-dark btn-outline-success btn-lg shadow-lg text-light position-absolute top-50 end-0 translate-middle-y" type="button"
-        data-bs-toggle="collapse" data-bs-target=".collapseInicioSesion" aria-expanded="false"
-        aria-controls="collapseExample" href="{% url 'login' %}"> 
-        HOMEBANKING
-      </button>
+  <div class="collapse navbar-collapse mb-2 position-relative" id="navbarSupportedContent">
+    <button class="btn btn-dark btn-outline-success btn-lg shadow-lg text-light position-absolute top-50 end-0 translate-middle-y" type="button"
+      data-bs-toggle="collapse" data-bs-target=".collapseInicioSesion" aria-expanded="false"
+      aria-controls="collapseExample" onclick="document.getElementById('navbarSupportedContent').classList.remove('show')"> 
+      HOMEBANKING
+    </button>
   </div>
 </div>
 {% endblock %}
