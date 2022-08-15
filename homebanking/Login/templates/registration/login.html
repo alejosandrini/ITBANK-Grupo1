@@ -1,0 +1,39 @@
+{% extends 'Base/index.html' %}
+
+{% block inicioSesion %}
+<div class="collapse collapseInicioSesion">
+  <div class="row d-flex justify-content-center">
+    <div class="col-12 bg-success p-5 d-flex justify-content-center">
+      <form action="" method="post">{% csrf_token %}
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label text-white">Correo</label>
+          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+          <div id="emailHelp" class="form-text text-white-50">No compartiremos tu correo con nadie.</div>
+
+        </div>
+        <div class="mb-3">
+          <label for="exampleInputPassword1" class="form-label text-white">Contraseña</label>
+          <input type="password" class="form-control" id="exampleInputPassword1">
+          <span id="passwordHelpInline" class="form-text text-white-50">
+            Debe tener entre 8 y 20 caracteres.
+          </span>
+        </div>
+        <div class="mb-3 form-check">
+          <input type="checkbox" class="form-check-input" id="exampleCheck1">
+          <label class="form-check-label text-white" for="exampleCheck1">Cerrar sesión automáticamente</label>
+        </div>
+        <a class="btn btn-success btn-outline-light btn-lg shadow-lg" href="{% url 'bank' %}"
+          role="button">Ingresar
+        </a>
+      </form>
+    </div>
+    <div class="container-fluid bg-dark d-flex justify-content-center">
+      <button class="navbar-toggler bg-dark" type="button" data-bs-toggle="collapse"
+      data-bs-target=".collapseInicioSesion" aria-controls="navbarSupportedContent" aria-expanded="false"
+      aria-label="Toggle navigation">
+        <span class="fa fa-chevron-up p-2 vw-100" style="color:white;"></span>
+      </button>
+    </div>
+  </div>
+</div>
+{% endblock %}
