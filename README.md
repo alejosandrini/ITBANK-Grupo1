@@ -19,3 +19,11 @@ Para los archivos:
 1. Los archivos de entrada JSON deben estar en la carpeta entradas-salidas
 2. El reporte se genera en la carpeta entradas-salidas
 3. El reporte se sobreescribe en el mismo HTML
+
+## Consideraciones Sprint 7:
+Crear un entorno virtual:
+mkvirtualenv nombre_entorno_virtual
+o trabajar con uno ya creado:
+workon nombre_entorno_virtual
+y ejecutar en la carpeta del proyecto 'homebanking':
+pip install -r requirements.txt
