@@ -168,22 +168,13 @@
           <div class="row justify-content-center">
             <div class="col-12 col-lg-6 bg-light g-5 p-4">
               <form>
-                <label for="customRange3" class="form-label">Monto</label>
-                <input type="range" class="form-range" min="0" max="50" step="0,5" id="customRange3">
+                <label for="customRange" class="form-label">Monto</label>
+                <p class="fs-3" >$<output id="montoPrestamo">250.000</output></p>
+                <input type="range" id="customRange" class="form-range" min="10000" max="500000" step="2500"
+                       oninput="getElementById('montoPrestamo').value = String(this.value).slice(0, -3) + '.' + String(this.value).slice(-3)">
+
                 <button type="button" class="btn btn-primary">ACEPTAR</button>
-                <datalist id="customRange3">
-                  <option value="0">
-                  <option value="10">
-                  <option value="20">
-                  <option value="30">
-                  <option value="40">
-                  <option value="50">
-                  <option value="60">
-                  <option value="70">
-                  <option value="80">
-                  <option value="90">
-                  <option value="100">
-                </datalist>
+
 
 
               </form>
