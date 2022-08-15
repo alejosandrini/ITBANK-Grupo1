@@ -5,6 +5,9 @@ Repositorio del grupo 1, comisión 4 - ITBANK.
 - Castoldi, Bianca
 - Polimeni, Juan Manuel
 - Sandrini, Alejo
+- Calabria, Tomás
+- Portocarrero, Estrella
+- Fonseca, Lautaro
 
 ## Consideraciones Sprint 4:
 1. En el código hay ejemplos para probar
@@ -21,9 +24,8 @@ Para los archivos:
 3. El reporte se sobreescribe en el mismo HTML
 
 ## Consideraciones Sprint 7:
-Crear un entorno virtual:
-mkvirtualenv nombre_entorno_virtual
-o trabajar con uno ya creado:
-workon nombre_entorno_virtual
+Crear un entorno virtual: mkvirtualenv nombre_entorno_virtual
+o trabajar con uno ya creado: workon nombre_entorno_virtual
+  
 y ejecutar en la carpeta del proyecto 'homebanking':
 pip install -r requirements.txt
