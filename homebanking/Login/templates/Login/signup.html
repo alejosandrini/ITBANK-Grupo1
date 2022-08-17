@@ -31,7 +31,8 @@
             }
         </script>
     </head>
-    <body class="background" style="background-image: url('{% static 'Base/Images/Background/fondo-buenos-aires-noche.jpg' %}');">
+    {% static 'Base/Images/Backgrounds/fondo-buenos-aires-noche.jpg' as fondo %}
+    <body class="background" style="background-image: url('{{fondo}}');">
         <div class="text-center pb-5 bg-gradient">
             <a href="">
                 <img src="{% static 'Base/Images/Logo/logo-itbank-blanco.png' %}" class="img-fluid" width="336" height="115">
