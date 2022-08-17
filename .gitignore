@@ -2,6 +2,7 @@ scss/
 node_modules/
 .idea/
 venv/
+entornovirtual/
 
 */*/*/__pycache__/
 */*/__pycache__/
