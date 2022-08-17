@@ -22,8 +22,26 @@ Para los archivos:
 
 ## Consideraciones Sprint 7:
 Crear un entorno virtual:
-mkvirtualenv nombre_entorno_virtual
+`mkvirtualenv nombre_entorno_virtual`
 o trabajar con uno ya creado:
-workon nombre_entorno_virtual
+`workon nombre_entorno_virtual`
 y ejecutar en la carpeta del proyecto 'homebanking':
-pip install -r requirements.txt
+`pip install -r requirements.txt`
+
+# Usuarios
+- Superusuario:
+    - Username: admin
+    - Email: admin@itbank.com
+    - Password: itbank2022
+- Usuario1:
+    - Username: 
+    - Email: 
+    - Password: 
+- Usuario2:
+    - Username: 
+    - Email: 
+    - Password: 
+- Usuario3:
+    - Username: 
+    - Email: 
+    - Password: 

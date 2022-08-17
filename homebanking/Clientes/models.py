@@ -2,7 +2,7 @@ from django.db import models
 
 # Create your models here.
 class Cliente(models.Model):
-    customer_id = models.AutoField()
+    customer_id = models.AutoField(primary_key=True)
     customer_name = models.TextField()
     customer_surname = models.TextField()  # This field type is a guess.
     customer_dni = models.TextField(db_column='customer_DNI', unique=True)  # Field name made lowercase.
@@ -15,7 +15,7 @@ class Cliente(models.Model):
         db_table = 'cliente'
 
 class TiposCliente(models.Model):
-    id_tipo_cliente = models.AutoField(primary_key=True, blank=True, null=True)
+    id_tipo_cliente = models.AutoField(primary_key=True)
     tipo = models.TextField()
     max_chequeras = models.IntegerField()
     max_tarjetas_credito = models.IntegerField()
@@ -38,7 +38,7 @@ class RestriccionesTipoCliente(models.Model):
         db_table = 'restricciones_tipo_cliente'
 
 class Direcciones(models.Model):
-    id_direccion = models.AutoField(primary_key=True, blank=True, null=True)
+    id_direccion = models.AutoField(primary_key=True)
     calle = models.TextField()
     numero = models.IntegerField()
     ciudad = models.TextField()
@@ -53,7 +53,7 @@ class Direcciones(models.Model):
         db_table = 'direcciones'
 
 class Empleado(models.Model):
-    employee_id = models.AutoField()
+    employee_id = models.AutoField(primary_key=True)
     employee_name = models.TextField()
     employee_surname = models.TextField()
     employee_hire_date = models.TextField()
@@ -65,7 +65,7 @@ class Empleado(models.Model):
         db_table = 'empleado'
 
 class Sucursal(models.Model):
-    branch_id = models.AutoField()
+    branch_id = models.AutoField(primary_key=True)
     branch_number = models.BinaryField()
     branch_name = models.TextField()
     branch_address_id = models.IntegerField()

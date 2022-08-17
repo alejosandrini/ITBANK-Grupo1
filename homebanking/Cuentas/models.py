@@ -2,7 +2,7 @@ from django.db import models
 
 # Create your models here.
 class Cuenta(models.Model):
-    account_id = models.AutoField()
+    account_id = models.AutoField(primary_key=True)
     customer_id = models.IntegerField()
     balance = models.IntegerField()
     iban = models.TextField()
@@ -13,7 +13,7 @@ class Cuenta(models.Model):
         db_table = 'cuenta'
 
 class TiposCuenta(models.Model):
-    id_tipo_cuenta = models.AutoField(primary_key=True, blank=True, null=True)
+    id_tipo_cuenta = models.AutoField(primary_key=True)
     tipo = models.TextField()
 
     class Meta:
@@ -37,7 +37,7 @@ class AuditoriaCuenta(models.Model):
         db_table = 'auditoria_cuenta'
 
 class Movimientos(models.Model):
-    id_movimiento = models.AutoField(primary_key=True, blank=True, null=True)
+    id_movimiento = models.AutoField(primary_key=True)
     id_cuenta = models.IntegerField()
     monto = models.IntegerField()
     tipo_operacion = models.TextField()
