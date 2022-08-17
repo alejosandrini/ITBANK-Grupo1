@@ -101,7 +101,9 @@ function llamadoAPI(){
         }
     });
 }
+
 llamadoAPI();
+
 setInterval(()=>{
     while (contenido.hasChildNodes()) {
         contenido.removeChild(contenido.firstChild);
