@@ -11,7 +11,7 @@ CREATE TABLE direcciones (
     id_sucursal integer UNIQUE,
     CONSTRAINT fk_direcciones
         FOREIGN KEY (id_cliente)
-        REFERENCES cliente(customet_id), 
+        REFERENCES cliente(customer_id), 
         FOREIGN KEY (id_empleado)
         REFERENCES empleado(employee_id),
         FOREIGN KEY (id_sucursal)

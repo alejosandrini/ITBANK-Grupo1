@@ -105,13 +105,13 @@ CREATE TABLE movimientos(
     hora datetime NOT NULL,
     CONSTRAINT fk_movimientos
         FOREIGN KEY (id_cuenta)
-        REFERENCES cuenta(customer_id)
+        REFERENCES cuenta(account_id)
 );
 
 BEGIN TRANSACTION;
     UPDATE cuenta
     SET balance = balance - 1000
-    WHERE customer_id = 200;
+    WHERE account_id = 200;
     UPDATE cuenta
     SET balance = balance + 1000
     WHERE customer_id = 400;
@@ -123,7 +123,7 @@ COMMIT;
 BEGIN TRANSACTION;
     UPDATE cuenta
     SET balance = balance - 1000
-    WHERE customer_id = 200;
+    WHERE account_id = 200;
     UPDATE cuenta
     SET balance = balance + 1000
     WHERE customer_id = 400;
