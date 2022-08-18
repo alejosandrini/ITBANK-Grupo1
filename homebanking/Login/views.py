@@ -5,7 +5,7 @@ from django.views import View
 class LoginView(View):
     def get(self, request, *args, **kwargs):
         if request.user.is_authenticated:
-            return redirect('home')
+            return redirect('index')
         else:
             context = {}
             return render(request, 'Login/signup.html', context=context)
