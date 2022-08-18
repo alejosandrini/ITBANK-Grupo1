@@ -1,5 +1,6 @@
 from django.db import models
 
+
 # Create your models here.
 class Cuenta(models.Model):
     account_id = models.AutoField(primary_key=True)
@@ -12,6 +13,7 @@ class Cuenta(models.Model):
         managed = False
         db_table = 'cuenta'
 
+
 class TiposCuenta(models.Model):
     id_tipo_cuenta = models.AutoField(primary_key=True)
     tipo = models.TextField()
@@ -19,6 +21,7 @@ class TiposCuenta(models.Model):
     class Meta:
         managed = False
         db_table = 'tipos_cuenta'
+
 
 class AuditoriaCuenta(models.Model):
     old_id = models.IntegerField()
@@ -35,6 +38,7 @@ class AuditoriaCuenta(models.Model):
     class Meta:
         managed = False
         db_table = 'auditoria_cuenta'
+
 
 class Movimientos(models.Model):
     id_movimiento = models.AutoField(primary_key=True)

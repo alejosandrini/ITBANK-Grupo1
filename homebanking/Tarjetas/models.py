@@ -1,5 +1,6 @@
 from django.db import models
 
+
 # Create your models here.
 class Tarjetas(models.Model):
     id_tarjeta = models.AutoField(primary_key=True)
@@ -15,6 +16,7 @@ class Tarjetas(models.Model):
         managed = False
         db_table = 'tarjetas'
 
+
 class MarcasTarjeta(models.Model):
     id_marca_tarjeta = models.AutoField(primary_key=True)
     marca = models.TextField()
@@ -22,6 +24,7 @@ class MarcasTarjeta(models.Model):
     class Meta:
         managed = False
         db_table = 'marcas_tarjeta'
+
 
 class TipoTarjeta(models.Model):
     id_tipo_tarjeta = models.AutoField(primary_key=True)

@@ -8,13 +8,16 @@
 /* Universal */
 
 .background {
-  background-image: url('../Images/Backgrounds/fondo-buenos-aires-noche.jpg');
   background-size: cover;
   background-repeat: no-repeat;
   height: 100vh;
 }
 
-/* Sign Up Form */
+/* Sign Up */
+
+#signUpBody {
+    background-image: url('../Images/Backgrounds/fondo-buenos-aires-noche.jpg');
+}
 
 #signUpForm {
     width: fit-content;

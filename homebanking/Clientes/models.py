@@ -1,5 +1,6 @@
 from django.db import models
 
+
 # Create your models here.
 class Cliente(models.Model):
     customer_id = models.AutoField(primary_key=True)
@@ -14,6 +15,7 @@ class Cliente(models.Model):
         managed = False
         db_table = 'cliente'
 
+
 class TiposCliente(models.Model):
     id_tipo_cliente = models.AutoField(primary_key=True)
     tipo = models.TextField()
@@ -25,17 +27,24 @@ class TiposCliente(models.Model):
         managed = False
         db_table = 'tipos_cliente'
 
+
 class RestriccionesTipoCliente(models.Model):
     id_tipo_cliente = models.IntegerField(unique=True)
-    limite_extraccion_diario = models.DecimalField(max_digits=10, decimal_places=5)  # max_digits and decimal_places have been guessed, as this database handles decimal fields as float
-    limite_transferencia_recibida = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True)  # max_digits and decimal_places have been guessed, as this database handles decimal fields as float
-    monto = models.DecimalField(max_digits=10, decimal_places=5)  # max_digits and decimal_places have been guessed, as this database handles decimal fields as float
-    costo_transferencias = models.DecimalField(max_digits=10, decimal_places=5)  # max_digits and decimal_places have been guessed, as this database handles decimal fields as float
-    saldo_descubierto_disponible = models.DecimalField(max_digits=10, decimal_places=5)  # max_digits and decimal_places have been guessed, as this database handles decimal fields as float
+    limite_extraccion_diario = models.DecimalField(max_digits=10,
+                                                   decimal_places=5)  # max_digits and decimal_places have been guessed, as this database handles decimal fields as float
+    limite_transferencia_recibida = models.DecimalField(max_digits=10, decimal_places=5, blank=True,
+                                                        null=True)  # max_digits and decimal_places have been guessed, as this database handles decimal fields as float
+    monto = models.DecimalField(max_digits=10,
+                                decimal_places=5)  # max_digits and decimal_places have been guessed, as this database handles decimal fields as float
+    costo_transferencias = models.DecimalField(max_digits=10,
+                                               decimal_places=5)  # max_digits and decimal_places have been guessed, as this database handles decimal fields as float
+    saldo_descubierto_disponible = models.DecimalField(max_digits=10,
+                                                       decimal_places=5)  # max_digits and decimal_places have been guessed, as this database handles decimal fields as float
 
     class Meta:
         managed = False
         db_table = 'restricciones_tipo_cliente'
+
 
 class Direcciones(models.Model):
     id_direccion = models.AutoField(primary_key=True)
@@ -52,6 +61,7 @@ class Direcciones(models.Model):
         managed = False
         db_table = 'direcciones'
 
+
 class Empleado(models.Model):
     employee_id = models.AutoField(primary_key=True)
     employee_name = models.TextField()
@@ -64,6 +74,7 @@ class Empleado(models.Model):
         managed = False
         db_table = 'empleado'
 
+
 class Sucursal(models.Model):
     branch_id = models.AutoField(primary_key=True)
     branch_number = models.BinaryField()
@@ -73,6 +84,7 @@ class Sucursal(models.Model):
     class Meta:
         managed = False
         db_table = 'sucursal'
+
 
 class TipoCombinacion(models.Model):
     texto = models.TextField()
