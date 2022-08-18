@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="//code.jquery.com/jquery.min.js"></script>
+        <title>Ingresá a ITBANK</title>
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'Base/css/custom.css' %}">
+        <!-- Font Awesome CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script type="text/javascript">
+            window.onload = function() {
+                document.getElementById("tab-login").addEventListener('click', changeToLogin);
+                document.getElementById("tab-register").addEventListener('click', changeToRegister);
+                document.getElementById("register-link").addEventListener('click', changeToRegister);
+            }
+
+            function changeToRegister() {
+                document.getElementById('pills-login').className = document.getElementById('pills-login').className.replace(/(?:^|\s)show active(?!\S)/g,'');
+                document.getElementById('pills-register').className += " show active";
+                document.getElementById('tab-login').className = document.getElementById('tab-login').className.replace(/(?:^|\s)active(?!\S)/g,'');
+                document.getElementById('tab-register').className += " active";
+            }
+            function changeToLogin() {
+                document.getElementById('pills-register').className = document.getElementById('pills-register').className.replace(/(?:^|\s)show active(?!\S)/g,'')
+                document.getElementById('pills-login').className += " show active"
+                document.getElementById('tab-register').className = document.getElementById('tab-register').className.replace(/(?:^|\s)active(?!\S)/g,'');
+                document.getElementById('tab-login').className += " active";
+            }
+        </script>
+    </head>
+    <body class="background">
+        <div class="text-center py-3 bg-gradient">
+            <a href="{% url 'home' %}">
+                <img src="{% static 'Base/Images/Logo/logo-itbank-blanco.png' %}" class="img-fluid" width="336" height="115">
+            </a>
+        </div>
+        <div class="rounded-5 p-5 my-5 mx-auto bg-light" id="signUpForm">
+            <div style="max-width: 26rem;min-width: 20rem;">
+                <ul class="nav nav-pills nav-justified mb-3" role="tablist">
+                    <li class="nav-item">
+                        <button class="nav-link active" id="tab-login">Ingresar</button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-link" id="tab-register">Registrarse</button>
+                    </li>
+                </ul>
+                <hr>
+                <div class="tab-content">
+                    <div class="tab-pane fade show active" id="pills-login">
+                        <form>
+                            <div class="form-floating mb-4">
+                                <input type="email" id="loginName" class="form-control" placeholder="Usuario"/>
+                                <label for="loginName">E-Mail o Usuario</label>
+                            </div>
+                            <div class="form-floating mb-4">
+                                <input type="password" id="loginPassword" class="form-control" placeholder="Contraseña"/>
+                                <label for="loginPassword">Contraseña</label>
+                            </div>
+                            <div class="row mb-4">
+                                <div class="col d-flex justify-content-center">
+                                    <div class="form-check mb-3 mb-md-0">
+                                        <input class="form-check-input" type="checkbox" value="" id="loginCheck" checked />
+                                        <label class="form-check-label" for="loginCheck"> Recuérdame </label>
+                                    </div>
+                                </div>
+                                <div class="col d-flex">
+                                    <a href="#"><small>Olvidé mi contraseña</small></a>
+                                </div>
+                            </div>
+                            <a type="submit" class="btn btn-block btn-primary mb-4" href="" >Ingresá</a>
+                            <div class="text-center">
+                                <p>¿Todavía no sos miembro? <a id="register-link" href="#">Registrate</a></p>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="tab-pane fade" id="pills-register">
+                        <form>
+                            <div class="form-floating mb-4">
+                                <input type="text" id="registerName" class="form-control" placeholder="Nombre y Apellido"/>
+                                <label for="registerName">Nombre Completo</label>
+                            </div>
+                            <div class="form-floating mb-4">
+                                <input type="text" id="registerUsername" class="form-control" placeholder="Usuario"/>
+                                <label for="registerUsername">Usuario</label>
+                            </div>
+                            <div class="form-floating mb-4">
+                                <input type="email" id="registerEmail" class="form-control" placeholder="E-Mail"/>
+                                <label for="registerEmail">E-Mail</label>
+                            </div>
+                            <div class="form-floating mb-4">
+                                <input type="password" id="registerPassword" class="form-control" placeholder="Contraseña"/>
+                                <label class="form-label" for="registerPassword">Contraseña</label>
+                            </div>
+                            <div class="form-floating mb-4">
+                                <input type="password" id="registerRepeatPassword" class="form-control" placeholder="Confirmar Contraseña"/>
+                                <label for="registerRepeatPassword">Confirmar contraseña</label>
+                            </div>
+                            <div class="form-check d-flex justify-content-center mb-4">
+                                <input class="form-check-input me-2" type="checkbox" value="" id="registerCheck" checked aria-describedby="registerCheckHelpText" />
+                                <label class="form-check-label" for="registerCheck">
+                                    Leí y estoy de acuerdo con los términos y condiciones
+                                </label>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block">Registrate</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
