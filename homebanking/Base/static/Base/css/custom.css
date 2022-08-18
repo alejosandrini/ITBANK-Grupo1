@@ -5,12 +5,22 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
 
-#signUpBackground {
-  background-image: url('../Images/Background/fondo-buenos-aires-noche.jpg');
+/* Universal */
+
+.background {
+  background-image: url('../Images/Backgrounds/fondo-buenos-aires-noche.jpg');
   background-size: cover;
   background-repeat: no-repeat;
-  height: 100%
+  height: 100vh;
 }
+
+/* Sign Up Form */
+
+#signUpForm {
+    width: fit-content;
+}
+
+/* Custom */
 
 :root {
   --bs-blue: #0d6efd;
