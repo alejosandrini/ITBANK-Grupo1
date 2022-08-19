@@ -58,7 +58,7 @@ def imprimir_transacciones(transacciones: list) -> str:
 
 
 def generar_reporte(cliente):
-    file = open('.\entradas-salidas\\reporte.html', 'w', encoding="utf-8")
+    file = open('entradas-salidas/reporte.html', 'w', encoding="utf-8")
 
     html_template = [f"""
         <!--En el reporte se debe incluir el nombre de cliente, número, DNI, dirección y para
