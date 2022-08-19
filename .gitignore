@@ -3,6 +3,8 @@ node_modules/
 .idea/
 venv/
 entornovirtual/
+mientorno/
+
 
 */*/*/__pycache__/
 */*/__pycache__/
