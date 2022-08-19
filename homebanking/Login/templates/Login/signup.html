@@ -50,13 +50,13 @@
                 <hr>
                 <div class="tab-content">
                     <div class="tab-pane fade show active" id="pills-login">
-                        <form>
+                        <form action="" method="post">
                             <div class="form-floating mb-4">
-                                <input type="email" id="loginName" class="form-control" placeholder="Usuario"/>
-                                <label for="loginName">E-Mail o Usuario</label>
+                                <input required type="email" id="loginName" class="form-control" placeholder="Usuario" autofocus maxlength="30"/>
+                                <label for="loginName">Usuario</label>
                             </div>
                             <div class="form-floating mb-4">
-                                <input type="password" id="loginPassword" class="form-control" placeholder="Contraseña"/>
+                                <input required type="password" id="loginPassword" class="form-control" placeholder="Contraseña" maxlength="30"/>
                                 <label for="loginPassword">Contraseña</label>
                             </div>
                             <div class="row mb-4">
@@ -77,29 +77,33 @@
                         </form>
                     </div>
                     <div class="tab-pane fade" id="pills-register">
-                        <form>
+                        <form action="" method="post">
                             <div class="form-floating mb-4">
-                                <input type="text" id="registerName" class="form-control" placeholder="Nombre y Apellido"/>
-                                <label for="registerName">Nombre Completo</label>
+                                <input required type="text" id="registerName" class="form-control" placeholder="Nombre"/>
+                                <label for="registerName">Nombre</label>
                             </div>
                             <div class="form-floating mb-4">
-                                <input type="text" id="registerUsername" class="form-control" placeholder="Usuario"/>
+                                <input required type="text" id="registerSurname" class="form-control" placeholder="Apellido"/>
+                                <label for="registerSurname">Apellido</label>
+                            </div>
+                            <div class="form-floating mb-4">
+                                <input required type="text" id="registerUsername" class="form-control" placeholder="Usuario" maxlength="30"/>
                                 <label for="registerUsername">Usuario</label>
                             </div>
                             <div class="form-floating mb-4">
-                                <input type="email" id="registerEmail" class="form-control" placeholder="E-Mail"/>
+                                <input required type="email" id="registerEmail" class="form-control" placeholder="E-Mail"/>
                                 <label for="registerEmail">E-Mail</label>
                             </div>
                             <div class="form-floating mb-4">
-                                <input type="password" id="registerPassword" class="form-control" placeholder="Contraseña"/>
+                                <input required type="password" id="registerPassword" class="form-control" placeholder="Contraseña" minlength="8"/>
                                 <label class="form-label" for="registerPassword">Contraseña</label>
                             </div>
                             <div class="form-floating mb-4">
-                                <input type="password" id="registerRepeatPassword" class="form-control" placeholder="Confirmar Contraseña"/>
+                                <input required type="password" id="registerRepeatPassword" class="form-control" placeholder="Confirmar Contraseña" minlength="8"/>
                                 <label for="registerRepeatPassword">Confirmar contraseña</label>
                             </div>
                             <div class="form-check d-flex justify-content-center mb-4">
-                                <input class="form-check-input me-2" type="checkbox" value="" id="registerCheck" checked aria-describedby="registerCheckHelpText" />
+                                <input required class="form-check-input me-2" type="checkbox" value="" id="registerCheck" />
                                 <label class="form-check-label" for="registerCheck">
                                     Leí y estoy de acuerdo con los términos y condiciones
                                 </label>

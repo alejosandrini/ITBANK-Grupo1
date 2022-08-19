@@ -2,20 +2,22 @@
 {% load static %}
 
 {% block content %}
-        <div class="modal modal-alert d-block bg-secondary bg-opacity-50 py-5" tabindex="-1" role="dialog" id="modalChoice">
-            <div class="modal-dialog" role="document" style="margin-top:25vh;">
+        {% if error == 'auth_required' %}
+        <div class="modal modal-alert d-block bg-secondary bg-opacity-50 py-5" tabindex="-1" id="modal">
+            <div class="modal-dialog" style="margin-top:25vh;">
                 <div class="modal-content rounded-3 shadow">
                     <div class="modal-body p-4 text-center">
                         <h5 class="mb-0 text-danger fw-bold">Acceso No Autorizado</h5>
                         <p class="mb-0">La página a la que intentaste acceder requiere que hayas iniciado sesion, quieres hacerlo ahora?</p>
                     </div>
                     <div class="modal-footer flex-nowrap p-0">
-                        <a href="{% url 'signup' %}" type="button" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 m-0 rounded-0 border-end"><strong>Iniciar Sesión</strong></a>
-                        <button type="button" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 m-0 rounded-0" data-bs-dismiss="modal">No, Gracias</button>
+                        <a href="{% url 'signup' %}?next={{ next }}" type="button" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 m-0 rounded-0 border-end"><strong>Iniciar Sesión</strong></a>
+                        <button type="button" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 m-0 rounded-0" onclick="document.getElementById('modal').remove()">No, Gracias</button>
                     </div>
                 </div>
             </div>
         </div>
+        {% endif %}
 
         <div class="row justify-content-center gy-3 gy-lg-5">
             <div class="col-12">

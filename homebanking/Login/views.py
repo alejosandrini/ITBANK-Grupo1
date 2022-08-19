@@ -8,7 +8,7 @@ class LoginView(View):
         if request.user.is_authenticated:
             return redirect('index')
         else:
-            context = {}
+            context = request.GET.dict()
             return render(request, 'Login/signup.html', context=context)
 
 
