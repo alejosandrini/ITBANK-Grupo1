@@ -10,6 +10,7 @@ class Cliente(models.Model):
     dob = models.TextField(blank=True, null=True)
     branch_id = models.IntegerField()
     id_tipo_cliente = models.IntegerField()
+    id_usuario = models.IntegerField()
 
     class Meta:
         managed = False
