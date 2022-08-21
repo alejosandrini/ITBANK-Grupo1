@@ -88,7 +88,7 @@ BEGIN
 END;
 
 UPDATE cuenta
-SET balance = balance - 100
+SET balance = balance - 10000
 WHERE account_id BETWEEN 10 AND 14;
 
 -- 6. Indice de DNI en cliente
@@ -110,23 +110,23 @@ CREATE TABLE movimientos(
 
 BEGIN TRANSACTION;
     UPDATE cuenta
-    SET balance = balance - 1000
+    SET balance = balance - 100000
     WHERE customer_id = 200;
     UPDATE cuenta
-    SET balance = balance + 1000
+    SET balance = balance + 100000
     WHERE customer_id = 400;
     INSERT INTO movimientos (id_cuenta, monto, tipo_operacion, hora)
-    VALUES  (200, 1000, '-', time('now', 'localtime')),
-            (400, 1000, '+', time('now', 'localtime'));
+    VALUES  (200, 100000, '-', time('now', 'localtime')),
+            (400, 100000, '+', time('now', 'localtime'));
 COMMIT;
 
 BEGIN TRANSACTION;
     UPDATE cuenta
-    SET balance = balance - 1000
+    SET balance = balance - 100000
     WHERE customer_id = 200;
     UPDATE cuenta
-    SET balance = balance + 1000
+    SET balance = balance + 100000
     WHERE customer_id = 400;
     INSERT INTO movimientos (id_cuenta, monto, tipo_operacion, hora)
-    VALUES  (200, 1000, '-', time('now', 'localtime'));
+    VALUES  (200, 100000, '-', time('now', 'localtime'));
 ROLLBACK;
