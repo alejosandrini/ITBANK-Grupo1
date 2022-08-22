@@ -1,18 +1,41 @@
--- TODO:
--- 1. Seleccionar las cuentas con saldo negativo
--- 2. Seleccionar el nombre, apellido y edad de los clientes que tengan en el
---      apellido la letra Z
--- 3. Seleccionar el nombre, apellido, edad y nombre de sucursal de las personas
---      cuyo nombre sea “Brendan” y el resultado ordenarlo por nombre de sucursal
--- 4. Seleccionar de la tabla de préstamos, los préstamos con un importe mayor
---      a $80.000 y los préstamos prendarios utilizando la unión de tablas/consultas
---      (recordar que en las bases de datos la moneda se guarda como integer, en este caso con 2 centavos)
--- 5. Seleccionar los prestamos cuyo importe sea mayor que el importe medio de
---      todos los prestamos
--- 6. Contar la cantidad de clientes menores a 50 años
--- 7. Seleccionar las primeras 5 cuentas con saldo mayor a 8.000$
--- 8. Seleccionar los préstamos que tengan fecha en abril, junio y agosto,
---      ordenándolos por importe
--- 9. Obtener el importe total de los prestamos agrupados por tipo de préstamos.
---      Por cada tipo de préstamo de la tabla préstamo, calcular la suma de sus
---      importes. Renombrar la columna como loan_total_accu
+-- 1. 
+SELECT * FROM cuenta 
+WHERE balance <0;
+
+-- 2. 
+SELECT customer_name, customer_surname, customer_edad FROM cliente
+WHERE instr(lower(customer_name),'z') OR instr (lower(customer_surname), 'z');
+
+-- 3.
+SELECT customer_name, customer_surname, sucursal.branch_name FROM cliente
+INNER JOIN sucursal ON cliente.branch_id = sucursal.branch_id 
+WHERE customer_name = "Brendan";
+-- 4. 
+SELECT * FROM prestamo where loan_total > 8000000 
+UNION
+SELECT * from prestamo WHERE loan_type = 'PRENDARIO'; 
+
+-- 5.
+SELECT * from prestamo
+WHERE loan_total > (SELECT avg (loan_total) FROM prestamo);
+
+-- 6.
+SELECT count(customer_edad) as cantidad_clientes FROM cliente
+    GROUP BY customer_edad < 50;
+
+-- 7.
+SELECT * from cuenta
+WHERE balance > 800000 
+LIMIT 5 ;
+
+-- 8.
+SELECT * from prestamo
+WHERE   strftime('%m', loan_date) = '04' OR  
+        strftime('%m', loan_date) = '06' OR 
+        strftime('%m', loan_date) = '08'
+    ORDER BY loan_total;
+
+-- 9.
+SELECT loan_type, sum (loan_total) as loan_total_accu 
+from prestamo
+GROUP BY loan_type;
