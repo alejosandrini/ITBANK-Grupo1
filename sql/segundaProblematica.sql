@@ -3,8 +3,13 @@
 -- 5. Consultar sobre cuál es el tipo de préstamo de mayor importe
 
 -- PUNTO 1 --
-drop VIEW clienteview;
-CREATE VIEW clienteview AS SELECT customer_id,branch_id ,customer_name, customer_surname, customer_DNI, CAST(strftime('%Y.%m%d', 'now') - strftime('%Y.%m%d', dob) AS INT) AS customer_edad
+drop VIEW IF EXISTS clienteview;
+CREATE VIEW clienteview AS SELECT 
+    customer_id,branch_id,
+    customer_name,
+    customer_surname,
+    customer_DNI, 
+    CAST(strftime('%Y.%m%d', 'now') - strftime('%Y.%m%d', dob) AS INT) AS customer_edad
 FROM cliente;
 
 SELECT * 
@@ -35,7 +40,7 @@ WHERE customer_id>500;
 -- PUNTO 4 --
 
 INSERT INTO cliente (customer_name, customer_surname, customer_DNI, branch_id, dob)
-VALUES ("Noel", "David", 00000000, 00, 1984-07-07);
+VALUES ("Noel", "David", 47083123, 10, 1984-07-07);
 DELETE FROM cliente
 WHERE customer_name= "Noel" and customer_surname= "David";
 
