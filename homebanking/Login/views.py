@@ -2,6 +2,7 @@ from django.contrib.auth import logout, login, authenticate
 from django.shortcuts import render, redirect
 from django.views import View
 from Clientes.models import Cliente
+from django.contrib import messages
 
 
 class LoginView(View):
@@ -21,12 +22,15 @@ class LoginView(View):
             cliente= Cliente.objects.get(id_usuario=user.id)    
             return render(request, 'Cuentas/bank.html', {"cliente":cliente})       
         else:
+            messages.warning(request,"La combinacion campo-contraseña no es correcta. Intente nuevamente")
             return redirect("signup")
+
 
 
 
 class LogoutView(View):
     def get(self, request, *args, **kwargs):
+        messages.info(request,"La sesión ha sido cerrada correctamente.")
         logout(request)
         return redirect('index')
 
