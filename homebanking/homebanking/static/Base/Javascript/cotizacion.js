@@ -11,7 +11,7 @@ function createCards(data) {
 
         col.setAttribute(
             "class",
-            "col col-12 col-sm-6 col-lg-4"
+            "col col-12 col-lg-6"
         );
 
         let card = document.createElement("div");
@@ -27,6 +27,7 @@ function createCards(data) {
             "class",
             "card-header bg-dark text-white text-center"
         );
+        cardHeader.style.fontSize = '80%';
         cardHeader.innerText = `${divisa.nombre}`;
 
         let cardBody = document.createElement("div");
@@ -35,24 +36,24 @@ function createCards(data) {
 
         transactionLabel.setAttribute(
             "class",
-            "row justify-content-md-center d-flex w-100"
+            "row justify-content-center w-100 gx-1"
         );
 
         let buyLabel = document.createElement("div");
 
         buyLabel.setAttribute(
             "class",
-            "col-6 text-center"
+            "col-6 text-center mx-auto"
         );
-        buyLabel.innerText = "Precio Compra:";
+        buyLabel.innerText = "Compra:";
 
         let sellLabel = document.createElement("div");
 
         sellLabel.setAttribute(
             "class",
-            "col-6 text-center"
+            "col-6 text-center mx-auto"
         );
-        sellLabel.innerText = "Precio Venta:";
+        sellLabel.innerText = "Venta:";
 
         transactionLabel.appendChild(buyLabel);
         transactionLabel.appendChild(sellLabel);
@@ -61,7 +62,7 @@ function createCards(data) {
 
         transactionValue.setAttribute(
             "class",
-            "row justify-content-md-center"
+            "row justify-content-center"
         );
 
         let buyValue = document.createElement("div");
@@ -97,7 +98,7 @@ function createCards(data) {
             "class",
             "card-footer text-muted fs-6"
         );
-        cardFooter.innerText = `última Actualización: ${date.getHours()}:${date.getMinutes()}hs`;
+        cardFooter.innerText = `Actualizado: ${date.getHours()}:${date.getMinutes()}hs`;
 
         card.appendChild(cardHeader);
         card.appendChild(cardBody);
