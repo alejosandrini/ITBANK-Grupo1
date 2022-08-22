@@ -3,7 +3,7 @@ SELECT * FROM cuenta
 WHERE balance <0;
 
 -- 2. 
-SELECT customer_name, customer_surname, customer_edad FROM cliente
+SELECT customer_name, customer_surname, dob FROM cliente
 WHERE instr(lower(customer_name),'z') OR instr (lower(customer_surname), 'z');
 
 -- 3.
@@ -20,8 +20,8 @@ SELECT * from prestamo
 WHERE loan_total > (SELECT avg (loan_total) FROM prestamo);
 
 -- 6.
-SELECT count(customer_edad) as cantidad_clientes FROM cliente
-    GROUP BY customer_edad < 50;
+SELECT count(dob) as cantidad_clientes FROM cliente
+    GROUP BY dob < 50;
 
 -- 7.
 SELECT * from cuenta
