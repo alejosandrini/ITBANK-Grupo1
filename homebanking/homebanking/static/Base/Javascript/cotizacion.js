@@ -28,7 +28,7 @@ function createCards(data) {
             "card-header bg-dark text-white text-center"
         );
         cardHeader.style.fontSize = '80%';
-        cardHeader.innerText = `${divisa.nombre}`;
+        cardHeader.innerHTML = `<span class="fa fa-money" style="color:white;"></span> ${divisa.nombre}`;
 
         let cardBody = document.createElement("div");
 
@@ -74,7 +74,7 @@ function createCards(data) {
         buyValue.style.fontSize = '120%';
         buyValue.style.padding = '5%';
         buyValue.innerText =
-          isNaN(parseInt(divisa.compra))? "No Cotiza": `$${divisa.compra}`;
+          isNaN(parseInt(divisa.compra))? "No Cotiza": `$${divisa.compra.substring(0, divisa.compra.indexOf(',')+3)}`;
 
         let sellValue = document.createElement("div");
 
@@ -84,7 +84,7 @@ function createCards(data) {
         );
         sellValue.style.fontSize = '120%';
         sellValue.style.padding = '5%';
-        sellValue.innerText = `$${divisa.venta}`;
+        sellValue.innerText = `$${divisa.venta.substring(0, divisa.venta.indexOf(',')+3)}`;
 
         transactionValue.appendChild(buyValue);
         transactionValue.appendChild(sellValue);
@@ -96,7 +96,7 @@ function createCards(data) {
 
         cardFooter.setAttribute(
             "class",
-            "card-footer text-muted fs-6"
+            "card-footer text-muted fs-6 text-center"
         );
         cardFooter.innerText = `Actualizado: ${date.getHours()}:${date.getMinutes()}hs`;
 
