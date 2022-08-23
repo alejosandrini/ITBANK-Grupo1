@@ -36,10 +36,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
     'homebanking',
+    'Login',
     'Clientes',
     'Cuentas',
-    'Login',
     'Prestamos',
     'Tarjetas'
 ]
@@ -128,5 +129,5 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_URL = "/?error=auth_required"
-LOGIN_REDIRECT_URL = "bank"
+LOGIN_REDIRECT_URL = "/bank/"
 LOGOUT_REDIRECT_URL = "/"

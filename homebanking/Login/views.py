@@ -4,6 +4,8 @@ from django.views import View
 from Clientes.models import Cliente
 from django.contrib import messages
 
+from Clientes.serializers import ClienteSerializer
+
 
 class LoginView(View):
     def get(self, request, *args, **kwargs):
@@ -11,7 +13,7 @@ class LoginView(View):
             return redirect('index')
         else:
             context = request.GET.dict()
-            return render(request, 'Login/signup.html', context=context)
+            return render(request, 'registration/signup.html', context=context)
 
     def post(self, request):
         username = request.POST['username']
@@ -19,10 +21,12 @@ class LoginView(View):
         user = authenticate(username=username, password=password) 
         if user is not None: 
             login(request, user)
-            cliente= Cliente.objects.get(id_usuario=user.id)    
-            return render(request, 'Cuentas/bank.html', {"cliente":cliente})       
+            cliente= Cliente.objects.get(id_usuario=user.id)            
+            request.session['cliente'] = ClienteSerializer(cliente).data
+            # return render(request, "Cuentas/bank.html", {"cliente":cliente})
+            return redirect('bank')  
         else:
-            messages.warning(request,"La combinacion campo-contraseña no es correcta. Intente nuevamente")
+            messages.warning(request,"La combinación campo-contraseña no es correcta. Intente nuevamente")
             return redirect("signup")
 
 
@@ -30,7 +34,7 @@ class LoginView(View):
 
 class LogoutView(View):
     def get(self, request, *args, **kwargs):
-        messages.info(request,"La sesión ha sido cerrada correctamente.")
         logout(request)
-        return redirect('index')
+        messages.info(request,"La sesión ha sido cerrada correctamente.")
+        return redirect('index') 
 

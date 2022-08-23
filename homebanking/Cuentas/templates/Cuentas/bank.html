@@ -23,7 +23,7 @@
 {% block content %}
   <!-- CONTAINER PRINCIPAL -->
   <div class="container-fluid bg-success">
-    <h1 class="text-light">Bienvenido a ITBANK, {{cliente.customer_name}}</h1>
+    <h1 class="text-light">Bienvenido a ITBANK, {{request.session.cliente.customer_name}}</h1>
   </div>
   <div class="container">
     <div class="row ">
