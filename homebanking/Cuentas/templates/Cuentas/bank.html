@@ -150,12 +150,22 @@
             <div class="collapse" id="prestamo" data-bs-parent="#accordion">
                 <div class="row justify-content-center">
                     <div class="col-12 col-lg-6 bg-light g-5 p-4">
-                        <form>
-                            <label for="customRange" class="form-label">Monto</label>
-                            <p class="fs-3" >$<output id="montoPrestamo">250.000</output></p>
-                            <input type="range" id="customRange" class="form-range" min="10000" max="500000" step="2500" oninput="getElementById('montoPrestamo').value = String(this.value).slice(0, -3) + '.' + String(this.value).slice(-3)">
-
-                            <button type="button" class="btn btn-primary">ACEPTAR</button>
+                        <form action="{% url 'prestamos' %}" method="POST">{% csrf_token %}
+                          <div class="row">
+                            <div class="col-12 col-lg-8">
+                              <label for="customRange" class="form-label">Monto</label>
+                              <p class="fs-3" >$<output id="montoPrestamo">250.000</output></p>
+                              <input type="range" name="monto" id="customRange" class="form-range" required min="10000" max="500000" step="2500" oninput="getElementById('montoPrestamo').value = String(this.value).slice(0, -3) + '.' + String(this.value).slice(-3)">
+                            </div>
+                            <div class="col-12 col-lg-4 p-2">
+                              <div class="cotainer border border-dark p-2 rounded">
+                                <label><input type="radio" name="tipo_prestamo" id="prestamo1" value="HIPOTECARIO" required> Hipotecario</label><br>
+                                <label><input type="radio" name="tipo_prestamo" id="prestamo2" value="PRENDARIO" required> Prendario</label><br>
+                                <label><input type="radio" name="tipo_prestamo" id="prestamo3" value="PERSONAL" required> Personal</label><br>
+                              </div>
+                            </div>
+                            <input type="submit" class="btn btn-primary btn-block" value="ACEPTAR">
+                          </div>
                         </form>
                     </div>
                 </div>
