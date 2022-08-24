@@ -3,14 +3,16 @@ from django.db import models
 
 # Create your models here.
 class Cliente(models.Model):
-    customer_id = models.AutoField(primary_key=True)
-    customer_name = models.TextField()
+    customer_id = models.IntegerField(primary_key=True)
+    customer_name = models.TextField(verbose_name='nombre')
     customer_surname = models.TextField()  # This field type is a guess.
     customer_dni = models.TextField(db_column='customer_DNI', unique=True)  # Field name made lowercase.
     dob = models.TextField(blank=True, null=True)
     branch_id = models.IntegerField()
-    id_tipo_cliente = models.IntegerField()
-    id_usuario = models.IntegerField()
+    tipo_cliente_id = models.ForeignKey('Clientes.TiposCliente',
+            on_delete=models.DO_NOTHING, db_column='id_tipo_cliente')
+    usuario_id = models.ForeignKey('auth.User', null=True,
+            on_delete=models.CASCADE, db_column='id_usuario')
 
     class Meta:
         managed = False

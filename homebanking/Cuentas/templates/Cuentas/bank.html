@@ -4,9 +4,74 @@
 
 
 {% block content %}
-        <!-- CONTAINER PRINCIPAL -->
-        <div class="container-fluid bg-success py-1">
-            <h1 class="text-light">Bienvenido a ITBANK, {{request.session.cliente.customer_name}}</h1>
+  <!-- CONTAINER PRINCIPAL -->
+  <div class="container-fluid bg-success py-1">
+    <div class="container-fluid d-flex align-items-center">
+      <h1 class="text-light m-1">Bienvenido a ITBANK, {{request.session.cliente.customer_name}}</h1>
+      <button class="btn btn-dark btn-outline-primary border-0 btn-md shadow-lg text-light ms-md-auto" type="button"
+          data-bs-toggle="collapse" data-bs-target=".collapseInicioSesion" aria-expanded="false"
+          aria-controls="collapseExample"> 
+          Detalles usuario
+      </button>
+    </div>
+    <hr class="m-0" style="border: 2px solid #f4f4f4">
+    <div class="collapse collapseInicioSesion">
+      <div class="row d-flex justify-content-center">
+        <div class="row bg-success m-1 p-3 d-flex">
+          <h2 class="text-light my-1 p-0">Detalles del usuario</h2>
+          {% for key, value in request.session.cliente.items %}
+            {% if not 'id' in key %}
+            <div class="col-md-6 text-light bg-dark border border-light">
+              {{key}}: {{value}}
+            </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+        <div class="container-fluid bg-dark d-flex justify-content-center">
+          <button class="navbar-toggler bg-dark" type="button" data-bs-toggle="collapse"
+          data-bs-target=".collapseInicioSesion" aria-controls="navbarSupportedContent" aria-expanded="false"
+          aria-label="Toggle navigation">
+            <span class="fa fa-chevron-up p-2 vw-100" style="color:white;"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row ">
+
+      <!-- BALANCE CUENTAS -->
+
+      <div class="col-12 col-lg-6 g-5">
+        <div class="p-3 border bg-light shadow-lg bg-body rounded ">
+          <a class="btn text-start w-100" data-bs-toggle="collapse" data-bs-target="#balancetotal" aria-expanded="false"
+            aria-controls="balancetotal" href="#" role="button" href="#" role="button">
+            <h2>Balance Total</h2>
+            <h4>$ {{request.session.cuentas.balanceTotal}}</h4>
+          </a>
+          <div class="collapse" id="balancetotal">
+            {% for balance in request.session.cuentas.balances %}
+              <div class="p-3 border bg-light shadow-lg bg-body rounded ">
+                <h3>Balance Cuenta {{balance.id}}</h3>
+                <h5>$ {{balance.amount}}</h5>
+              </div>
+            {% endfor %}
+            <!-- <div class="p-3 border bg-light shadow-lg bg-body rounded ">
+              <h3>Balance Cuenta 1</h3>
+              <h5>$ 999.999.999,999</h5>
+              <h5>U$D 999.999.999,999</h5>
+            </div>
+            <div class="p-3 border bg-light shadow-lg bg-body rounded ">
+              <h3>Balance Cuenta 2</h3>
+              <h5>$ 999.999.999,999</h5>
+              <h5>U$D 999.999.999,999</h5>
+            </div>
+            <div class="p-3 border bg-light shadow-lg bg-body rounded ">
+              <h3>Balance Cuenta 3</h3>
+              <h5>$ 999.999.999,999</h5>
+              <h5>U$D 999.999.999,999</h5>
+            </div> -->
+          </div>
         </div>
         <div class="container">
             <div class="row ">

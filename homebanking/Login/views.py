@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.views import View
 from Clientes.models import Cliente
+from Cuentas.models import Cuenta
 from django.contrib import messages
 
 from Clientes.serializers import ClienteSerializer
@@ -26,11 +27,26 @@ class LoginView(View):
 
             if user is not None:
                 login(request, user)
-                cliente = Cliente.objects.get(id_usuario=user.id)
-                request.session['cliente'] = ClienteSerializer(cliente).data
+
+                cliente = Cliente.objects.filter(usuario_id=user.id).first()
+                clienteSerializado = ClienteSerializer(cliente).data
+
+                cuentas = Cuenta.objects.filter(customer_id=cliente.customer_id)
+
+                balances = []
+                balanceTotal = 0
+
+                for index, cuenta in enumerate(cuentas, 1):
+                    amount = cuenta.balance / 100
+                    balances.append({'amount': amount, 'id':index})
+                    balanceTotal += amount
+
+                request.session['cliente'] = clienteSerializado
+                request.session['cuentas'] = {'balanceTotal':round(balanceTotal, 2),'balances':balances}
+
                 return redirect('bank')
             else:
-                messages.warning(request, "La combinación Usuario-Contraseña no es correcta. Intente nuevamente")
+                messages.warning(request,"La combinación campo-contraseña no es correcta. Intente nuevamente")
                 return redirect("signup")
         elif request.POST['signup'] is not None:
             user = User.objects.create_user(
