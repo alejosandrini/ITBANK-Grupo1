@@ -3,7 +3,7 @@ from django.db import models
 
 # Create your models here.
 class Cliente(models.Model):
-    customer_id = models.AutoField(primary_key=True)
+    customer_id = models.IntegerField(primary_key=True)
     customer_name = models.TextField(verbose_name='nombre')
     customer_surname = models.TextField()  # This field type is a guess.
     customer_dni = models.TextField(db_column='customer_DNI', unique=True)  # Field name made lowercase.

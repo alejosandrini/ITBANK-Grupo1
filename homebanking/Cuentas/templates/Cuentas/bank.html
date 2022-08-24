@@ -64,11 +64,16 @@
           <a class="btn text-start w-100" data-bs-toggle="collapse" data-bs-target="#balancetotal" aria-expanded="false"
             aria-controls="balancetotal" href="#" role="button" href="#" role="button">
             <h2>Balance Total</h2>
-            <h4>$ 999.999.999,999</h4>
-            <h4>U$D 999.999.999,999</h4>
+            <h4>$ {{request.session.balance}}</h4>
           </a>
           <div class="collapse" id="balancetotal">
-            <div class="p-3 border bg-light shadow-lg bg-body rounded ">
+            {% for cuenta in request.session.cuentas %}
+              <div class="p-3 border bg-light shadow-lg bg-body rounded ">
+                <h3>Balance Cuenta {{cuenta.id}}</h3>
+                <h5>$ {{cuenta.balance}}</h5>
+              </div>
+            {% endfor %}
+            <!-- <div class="p-3 border bg-light shadow-lg bg-body rounded ">
               <h3>Balance Cuenta 1</h3>
               <h5>$ 999.999.999,999</h5>
               <h5>U$D 999.999.999,999</h5>
@@ -82,7 +87,7 @@
               <h3>Balance Cuenta 3</h3>
               <h5>$ 999.999.999,999</h5>
               <h5>U$D 999.999.999,999</h5>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
