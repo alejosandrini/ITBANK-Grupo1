@@ -21,8 +21,9 @@ class LoginView(View):
         user = authenticate(username=username, password=password) 
         if user is not None: 
             login(request, user)
-            cliente= Cliente.objects.get(id_usuario=user.id)            
+            cliente= Cliente.objects.get(usuario_id=user.id)     
             request.session['cliente'] = ClienteSerializer(cliente).data
+            print(ClienteSerializer(cliente).data)
             # return render(request, "Cuentas/bank.html", {"cliente":cliente})
             return redirect('bank')  
         else:

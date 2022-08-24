@@ -23,7 +23,36 @@
 {% block content %}
   <!-- CONTAINER PRINCIPAL -->
   <div class="container-fluid bg-success">
-    <h1 class="text-light">Bienvenido a ITBANK, {{request.session.cliente.customer_name}}</h1>
+    <div class="container-fluid d-flex align-items-center">
+      <h1 class="text-light m-1">Bienvenido a ITBANK, {{request.session.cliente.customer_name}}</h1>
+      <button class="btn btn-dark btn-outline-primary border-0 btn-md shadow-lg text-light ms-md-auto" type="button"
+          data-bs-toggle="collapse" data-bs-target=".collapseInicioSesion" aria-expanded="false"
+          aria-controls="collapseExample"> 
+          Detalles usuario
+      </button>
+    </div>
+    <hr class="m-0" style="border: 2px solid #f4f4f4">
+    <div class="collapse collapseInicioSesion">
+      <div class="row d-flex justify-content-center">
+        <div class="row bg-success m-1 p-3 d-flex">
+          <h2 class="text-light my-1 p-0">Detalles del usuario</h2>
+          {% for key, value in request.session.cliente.items %}
+            {% if not 'id' in key %}
+            <div class="col-md-6 text-light bg-dark border border-light">
+              {{key}}: {{value}}
+            </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+        <div class="container-fluid bg-dark d-flex justify-content-center">
+          <button class="navbar-toggler bg-dark" type="button" data-bs-toggle="collapse"
+          data-bs-target=".collapseInicioSesion" aria-controls="navbarSupportedContent" aria-expanded="false"
+          aria-label="Toggle navigation">
+            <span class="fa fa-chevron-up p-2 vw-100" style="color:white;"></span>
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
   <div class="container">
     <div class="row ">
