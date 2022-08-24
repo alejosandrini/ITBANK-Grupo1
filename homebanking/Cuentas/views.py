@@ -6,6 +6,6 @@ from django.views import View
 
 class HomeBankingView(View):
     @method_decorator(login_required)
-    def get(self, request, *args, **kwargs):
+    def get(self, request):
         context = request.GET.dict()
         return render(request, "Cuentas/bank.html", context=context)
