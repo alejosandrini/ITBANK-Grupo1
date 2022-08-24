@@ -31,13 +31,11 @@ class LoginView(View):
             cuentas= Cuenta.objects.filter(customer_id=cliente.customer_id)
             balances = []
             balanceTotal = 0
-            id = 0
-            for cuenta in cuentas:
-                id += 1
-                balances.append({'balance': cuenta.balance/100, 'id':id})
-                balanceTotal +=  cuenta.balance
-            request.session['cuentas'] = balances
-            request.session['balance'] = balanceTotal/100
+            for index, cuenta in enumerate(cuentas, 1):
+                amount = cuenta.balance/100
+                balances.append({'amount': amount, 'id':index})
+                balanceTotal += amount
+            request.session['cuentas'] = {'balanceTotal':round(balanceTotal, 2),'balances':balances}
             # return render(request, "Cuentas/bank.html", {"cliente":cliente})
             return redirect('bank')  
         else:
