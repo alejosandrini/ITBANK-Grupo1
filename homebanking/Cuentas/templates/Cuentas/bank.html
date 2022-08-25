@@ -17,7 +17,7 @@
                         <h2 class="text-light p-0">Detalles del usuario</h2>
                         {% for key, value in request.session.cliente.items %}
                             {% if not 'id' in key %}
-                            <span class="text-light border-light display-6">
+                            <span class="text-light border-light h6">
                                 {% if key in 'customer_name' %}
                                 Nombre
                                 {% elif key in 'customer_surname' %}
@@ -123,7 +123,7 @@
                     </a>
                     Tus puntos
                 </div>
-
+                
                 <!-- FORMS TRANSFERENCIA, PRESTAMO y SUPPORT -->
                 <div id="accordion">
                     <!-- FORM TRANSFERENCIA -->
@@ -168,7 +168,7 @@
                                     {% endif %}
                                     <label for="customRange" class="form-label">Monto</label>
                                     <p class="fs-3" >$<output id="montoPrestamo">250.000</output></p>
-                                    <input type="range" name="amount" id="customRange" class="form-range" min="10000" max="500000" step="2500" oninput="getElementById('montoPrestamo').value = String(this.value).slice(0, -3) + '.' + String(this.value).slice(-3)">
+                                    <input type="range" name="amount" id="customRange" class="form-range" value="250000" min="10000" max="500000" step="2500" oninput="getElementById('montoPrestamo').value = String(this.value).slice(0, -3) + '.' + String(this.value).slice(-3)">
                                     <div class="row my-3">
                                         <div class="col form-floating">
                                             <select name="type" class="form-select" id="floatingSelect" required>
@@ -176,10 +176,10 @@
                                                 <option value="PERSONAL">PERSONAL</option>
                                                 <option value="PRENDARIO">PRENDARIO</option>
                                             </select>
-                                            <label class="ps-5" for="floatingSelect">Elegi el Tipo de Prestamo</label>
+                                            <label class="ps-5" for="floatingSelect">Elegi Tipo de Prestamo</label>
                                         </div>
                                         <div class="col form-floating">
-                                            <input class="date form-control w-100" id="floatingDate" style="width: 250px;" type="date" required>
+                                            <input name="date" class="date form-control w-100" id="floatingDate" style="width: 250px;" type="date" required>
                                             <label class="ps-5" for="floatingDate">Elegi la Fecha de Inicio</label>
                                         </div>
                                     </div>

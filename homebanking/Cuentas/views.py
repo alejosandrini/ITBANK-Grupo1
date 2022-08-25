@@ -7,6 +7,7 @@ from Clientes.models import Cliente
 from Clientes.serializers import ClienteSerializer
 from Cuentas.models import Cuenta
 from Prestamos.models import Prestamo
+from datetime import datetime
 
 
 class HomeBankingView(View):
@@ -31,8 +32,8 @@ class HomeBankingView(View):
 
         for index, prestamo in enumerate(Prestamo.objects.filter(customer_id=cliente.customer_id), 1):
             prestamos.append(
-                {'type': prestamo.loan_type, 'amount': prestamo.loan_total / 100, 'date': prestamo.loan_date,
-                 'id': index})
+                {'type': prestamo.loan_type, 'amount': "{:.2f}".format(prestamo.loan_total / 100), 
+                 'date': datetime.strptime(prestamo.loan_date,'%Y-%m-%d').strftime('%d/%m/%Y'), 'id': index})
 
         request.session['cliente'] = cliente_serializado
         request.session['cuentas'] = {'balanceTotal': round(balance_total, 2), 'balances': balances}
