@@ -1,104 +1,63 @@
 {% extends "Base/base.html" %}
 {% load static %}
 
-
-
 {% block content %}
   <!-- CONTAINER PRINCIPAL -->
-  <div class="container-fluid bg-success py-1">
-    <div class="container-fluid d-flex align-items-center">
-      <h1 class="text-light m-1">Bienvenido a ITBANK, {{request.session.cliente.customer_name}}</h1>
-      <button class="btn btn-dark btn-outline-primary border-0 btn-md shadow-lg text-light ms-md-auto" type="button"
-          data-bs-toggle="collapse" data-bs-target=".collapseInicioSesion" aria-expanded="false"
-          aria-controls="collapseExample"> 
-          Detalles usuario
-      </button>
-    </div>
-    <hr class="m-0" style="border: 2px solid #f4f4f4">
-    <div class="collapse collapseInicioSesion">
-      <div class="row d-flex justify-content-center">
-        <div class="row bg-success m-1 p-3 d-flex">
-          <h2 class="text-light my-1 p-0">Detalles del usuario</h2>
-          {% for key, value in request.session.cliente.items %}
-            {% if not 'id' in key %}
-            <div class="col-md-6 text-light bg-dark border border-light">
-              {{key}}: {{value}}
+        <div class="container-fluid bg-success py-1">
+            <div class="container-fluid d-flex align-items-center">
+                <h1 class="text-light m-1">Bienvenido a ITBANK, {{request.session.cliente.customer_name}}</h1>
+                <button class="btn btn-dark btn-outline-primary border-0 btn-md shadow-lg text-light ms-md-auto" type="button" data-bs-toggle="collapse" data-bs-target=".collapseInicioSesion" aria-expanded="false" aria-controls="collapseExample">
+                  Detalles usuario
+                </button>
             </div>
-            {% endif %}
-          {% endfor %}
-        </div>
-        <div class="container-fluid bg-dark d-flex justify-content-center">
-          <button class="navbar-toggler bg-dark" type="button" data-bs-toggle="collapse"
-          data-bs-target=".collapseInicioSesion" aria-controls="navbarSupportedContent" aria-expanded="false"
-          aria-label="Toggle navigation">
-            <span class="fa fa-chevron-up p-2 vw-100" style="color:white;"></span>
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="container">
-    <div class="row ">
-
-      <!-- BALANCE CUENTAS -->
-
-      <div class="col-12 col-lg-6 g-5">
-        <div class="p-3 border bg-light shadow-lg bg-body rounded ">
-          <a class="btn text-start w-100" data-bs-toggle="collapse" data-bs-target="#balancetotal" aria-expanded="false"
-            aria-controls="balancetotal" href="#" role="button" href="#" role="button">
-            <h2>Balance Total</h2>
-            <h4>$ {{request.session.cuentas.balanceTotal}}</h4>
-          </a>
-          <div class="collapse" id="balancetotal">
-            {% for balance in request.session.cuentas.balances %}
-              <div class="p-3 border bg-light shadow-lg bg-body rounded ">
-                <h3>Balance Cuenta {{balance.id}}</h3>
-                <h5>$ {{balance.amount}}</h5>
-              </div>
-            {% endfor %}
-            <!-- <div class="p-3 border bg-light shadow-lg bg-body rounded ">
-              <h3>Balance Cuenta 1</h3>
-              <h5>$ 999.999.999,999</h5>
-              <h5>U$D 999.999.999,999</h5>
+            <hr class="m-0" style="border: 2px solid #f4f4f4">
+            <div class="collapse collapseInicioSesion">
+                <div class="row d-flex justify-content-center">
+                    <div class="row bg-success p-3 d-flex">
+                        <h2 class="text-light p-0">Detalles del usuario</h2>
+                        {% for key, value in request.session.cliente.items %}
+                            {% if not 'id' in key %}
+                            <span class="text-light border-light display-6">
+                                {% if key in 'customer_name' %}
+                                Nombre
+                                {% elif key in 'customer_surname' %}
+                                Apellido
+                                {% elif key in 'customer_dni' %}
+                                DNI
+                                {% elif key in 'dob' %}
+                                Fecha de Nacimiento
+                                {% elif key in 'tipo_cliente' %}
+                                Tipo de Cliente
+                                {% endif %}
+                                : {{value}}
+                            </span>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    <div class="container-fluid bg-dark d-flex justify-content-center">
+                        <button class="navbar-toggler bg-dark" type="button" data-bs-toggle="collapse" data-bs-target=".collapseInicioSesion" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="fa fa-chevron-up p-2 vw-100" style="color:white;"></span>
+                        </button>
+                    </div>
+                </div>
             </div>
-            <div class="p-3 border bg-light shadow-lg bg-body rounded ">
-              <h3>Balance Cuenta 2</h3>
-              <h5>$ 999.999.999,999</h5>
-              <h5>U$D 999.999.999,999</h5>
-            </div>
-            <div class="p-3 border bg-light shadow-lg bg-body rounded ">
-              <h3>Balance Cuenta 3</h3>
-              <h5>$ 999.999.999,999</h5>
-              <h5>U$D 999.999.999,999</h5>
-            </div> -->
-          </div>
         </div>
         <div class="container">
             <div class="row ">
                 <!-- BALANCE CUENTAS -->
                 <div class="col-12 col-lg-6 g-5">
                     <div class="p-3 border bg-light shadow-lg bg-body rounded ">
-                        <a class="btn text-start w-100" data-bs-toggle="collapse" data-bs-target="#balancetotal" aria-expanded="false" aria-controls="balancetotal" href="#" role="button">
+                        <a class="btn text-start w-100" data-bs-toggle="collapse" data-bs-target="#balancetotal" aria-expanded="false" aria-controls="balancetotal" href="#" role="button" href="#" role="button">
                             <h2>Balance Total</h2>
-                            <h4>$ 999.999.999,999</h4>
-                            <h4>U$D 999.999.999,999</h4>
+                            <h4>$ {{request.session.cuentas.balanceTotal}}</h4>
                         </a>
                         <div class="collapse" id="balancetotal">
+                            {% for balance in request.session.cuentas.balances %}
                             <div class="p-3 border bg-light shadow-lg bg-body rounded ">
-                                <h3>Balance Cuenta 1</h3>
-                                <h5>$ 999.999.999,999</h5>
-                                <h5>U$D 999.999.999,999</h5>
+                                <h3>Balance Cuenta {{balance.id}}</h3>
+                                <h5>$ {{balance.amount}}</h5>
                             </div>
-                            <div class="p-3 border bg-light shadow-lg bg-body rounded ">
-                                <h3>Balance Cuenta 2</h3>
-                                <h5>$ 999.999.999,999</h5>
-                                <h5>U$D 999.999.999,999</h5>
-                            </div>
-                            <div class="p-3 border bg-light shadow-lg bg-body rounded ">
-                                <h3>Balance Cuenta 3</h3>
-                                <h5>$ 999.999.999,999</h5>
-                                <h5>U$D 999.999.999,999</h5>
-                            </div>
+                            {% endfor %}
                         </div>
                     </div>
                 </div>
@@ -193,16 +152,62 @@
                     </div>
 
                   <!-- FORM PRESTAMO -->
+                    {% if messages %}
+                    <div class="collapse show" id="prestamo" data-bs-parent="#accordion">
+                    {% else %}
                     <div class="collapse" id="prestamo" data-bs-parent="#accordion">
+                    {% endif %}
                         <div class="row justify-content-center">
                             <div class="col-12 col-lg-6 bg-light g-5 p-4">
-                                <form>
+                                <form action="{% url 'prestamos' %}" method="post" >
+                                    {% csrf_token %}
+                                    {% if messages %}
+                                        {% for message in messages %}
+                                        <div class="alert {% if message.tags %} alert-{{ message.tags }}{% endif %} alert-dismissible fade show" role="alert">
+                                            {{ message }}
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                        </div>
+                                        {% endfor %}
+                                    {% endif %}
                                     <label for="customRange" class="form-label">Monto</label>
                                     <p class="fs-3" >$<output id="montoPrestamo">250.000</output></p>
-                                    <input type="range" id="customRange" class="form-range" min="10000" max="500000" step="2500" oninput="getElementById('montoPrestamo').value = String(this.value).slice(0, -3) + '.' + String(this.value).slice(-3)">
+                                    <input type="range" name="amount" id="customRange" class="form-range" min="10000" max="500000" step="2500" oninput="getElementById('montoPrestamo').value = String(this.value).slice(0, -3) + '.' + String(this.value).slice(-3)">
+                                    <div class="row my-3">
+                                        <div class="col form-floating">
+                                            <select name="type" class="form-select" id="floatingSelect" required>
+                                                <option value="HIPOTECARIO" selected>HIPOTECARIO</option>
+                                                <option value="PERSONAL">PERSONAL</option>
+                                                <option value="PRENDARIO">PRENDARIO</option>
+                                            </select>
+                                            <label class="ps-5" for="floatingSelect">Elegi el Tipo de Prestamo</label>
+                                        </div>
+                                        <div class="col form-floating">
+                                            <input class="date form-control w-100" id="floatingDate" style="width: 250px;" type="date" required>
+                                            <label class="ps-5" for="floatingDate">Elegi la Fecha de Inicio</label>
+                                        </div>
+                                    </div>
 
-                                    <button type="button" class="btn btn-primary">ACEPTAR</button>
+                                    <button type="submit" class="btn btn-primary">ACEPTAR</button>
                                 </form>
+                                <div class="row">
+                                    <div class="col-12 g-5">
+                                        <div class="p-3 border bg-light shadow-lg bg-body rounded ">
+                                            <a class="btn text-start w-100" data-bs-toggle="collapse" data-bs-target="#prestamos" aria-expanded="false" aria-controls="balancetotal" href="#" role="button" href="#" role="button">
+                                                <h2>Prestamos Aprobados</h2>
+                                            </a>
+                                            <div class="collapse" id="prestamos">
+                                                {% for prestamo in request.session.prestamos %}
+                                                <div class="p-3 border bg-light shadow-lg bg-body rounded ">
+                                                    <h3>Prestamo °{{prestamo.id}}</h3>
+                                                    <h5>{{prestamo.type}}</h5>
+                                                    <h5>$ {{prestamo.amount}}</h5>
+                                                    <h6>Fecha de Inicio: {{prestamo.date}}</h6>
+                                                </div>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -248,4 +253,7 @@
         </div>
 
         <!--ESPACIO PARA MAS ELEMENTOS-->
+{% endblock %}
+
+{% block js %}
 {% endblock %}
