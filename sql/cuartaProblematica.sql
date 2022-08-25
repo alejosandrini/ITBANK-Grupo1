@@ -105,7 +105,7 @@ CREATE TABLE movimientos(
     hora datetime NOT NULL,
     CONSTRAINT fk_movimientos
         FOREIGN KEY (id_cuenta)
-        REFERENCES cuenta(customer_id)
+        REFERENCES cuenta(account_id)
 );
 
 BEGIN TRANSACTION;
