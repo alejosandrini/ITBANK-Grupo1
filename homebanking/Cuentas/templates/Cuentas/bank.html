@@ -6,7 +6,7 @@
         <div class="container-fluid bg-success py-1">
             <div class="container-fluid d-flex align-items-center">
                 <h1 class="text-light m-1">Bienvenido a ITBANK, {{request.session.cliente.customer_name}}</h1>
-                <button class="btn btn-dark btn-outline-primary border-0 btn-md shadow-lg text-light ms-md-auto" type="button" data-bs-toggle="collapse" data-bs-target=".collapseInicioSesion" aria-expanded="false" aria-controls="collapseExample">
+                <button class="btn btn-dark btn-outline-primary border-0 btn-md shadow-lg text-light ms-sm-auto" type="button" data-bs-toggle="collapse" data-bs-target=".collapseInicioSesion" aria-expanded="false" aria-controls="collapseExample">
                   Detalles usuario
                 </button>
             </div>
@@ -17,19 +17,22 @@
                         <h2 class="text-light p-0">Detalles del usuario</h2>
                         {% for key, value in request.session.cliente.items %}
                             {% if not 'id' in key %}
-                            <span class="text-light border-light h6">
-                                {% if key in 'customer_name' %}
-                                Nombre
-                                {% elif key in 'customer_surname' %}
-                                Apellido
-                                {% elif key in 'customer_dni' %}
-                                DNI
-                                {% elif key in 'dob' %}
-                                Fecha de Nacimiento
-                                {% elif key in 'tipo_cliente' %}
-                                Tipo de Cliente
-                                {% endif %}
-                                : {{value}}
+                            <span class=" h6">
+                                <ul class="list-group m-0">
+                                    <li class="list-group-item text-light border-light bg-dark">
+                                    {% if key in 'customer_name' %}
+                                    Nombre
+                                    {% elif key in 'customer_surname' %}
+                                    Apellido
+                                    {% elif key in 'customer_dni' %}
+                                    DNI
+                                    {% elif key in 'dob' %}
+                                    Fecha de Nacimiento
+                                    {% elif key in 'tipo_cliente' %}
+                                    Tipo de Cliente
+                                    {% endif %}
+                                    : {{value}}</li>
+                                </ul>
                             </span>
                             {% endif %}
                         {% endfor %}
