@@ -2,6 +2,17 @@
 {% load static %}
 
 {% block content %}
+        <div class="container-fluid">
+            {% if messages %}
+                {% for message in messages %}
+                <div class="alert {% if message.tags %} alert-{{ message.tags }}{% endif %} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+
         {% if error == 'auth_required' %}
         <div class="modal modal-alert d-block bg-secondary bg-opacity-50 py-5" tabindex="-1" id="modal">
             <div class="modal-dialog" style="margin-top:25vh;">

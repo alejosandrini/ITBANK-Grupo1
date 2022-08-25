@@ -11,12 +11,6 @@
         <!-- Font Awesome CSS -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <script type="text/javascript">
-            window.onload = function() {
-                document.getElementById("tab-login").addEventListener('click', changeToLogin);
-                document.getElementById("tab-register").addEventListener('click', changeToRegister);
-                document.getElementById("register-link").addEventListener('click', changeToRegister);
-            }
-
             function changeToRegister() {
                 document.getElementById('pills-login').className = document.getElementById('pills-login').className.replace(/(?:^|\s)show active(?!\S)/g,'');
                 document.getElementById('pills-register').className += " show active";
@@ -41,10 +35,10 @@
             <div style="max-width: 26rem;min-width: 20rem;">
                 <ul class="nav nav-pills nav-justified mb-3" role="tablist">
                     <li class="nav-item">
-                        <button class="nav-link active" id="tab-login">Ingresar</button>
+                        <button class="nav-link active" id="tab-login" onclick="changeToLogin()">Ingresar</button>
                     </li>
                     <li class="nav-item">
-                        <button class="nav-link" id="tab-register">Registrarse</button>
+                        <button class="nav-link" id="tab-register" onclick="changeToRegister()">Registrarse</button>
                     </li>
                 </ul>
                 <hr>
@@ -58,57 +52,55 @@
                 {% endif %}
                 <div class="tab-content">
                     <div class="tab-pane fade show active" id="pills-login">
-                        <form action="" method="POST">{% csrf_token %}
+                        <form action="" method="POST">
+                            {% csrf_token %}
                             <div class="form-floating mb-4">
-                                <input type="username" id="loginName" class="form-control" placeholder="Usuario" name="username" required/>
-                                <label for="loginName">E-Mail o Usuario</label>
+                                <input required type="text" name="username" id="loginName" class="form-control" placeholder="Usuario" maxlength="254"/>
+                                <label for="loginName">Usuario</label>
                             </div>
                             <div class="form-floating mb-4">
-                                <input type="password" id="loginPassword" class="form-control" placeholder="Contraseña" name="password" required/>
+                                <input required type="password" name="password" id="loginPassword" class="form-control" placeholder="Contraseña"/>
                                 <label for="loginPassword">Contraseña</label>
                             </div>
                             <div class="row mb-4">
-                                <div class="col d-flex justify-content-center">
+                                <!--<div class="col d-flex justify-content-center">
                                     <div class="form-check mb-3 mb-md-0">
                                         <input class="form-check-input" type="checkbox" value="" id="loginCheck" checked />
                                         <label class="form-check-label" for="loginCheck"> Recuérdame </label>
                                     </div>
-                                </div>
+                                </div>-->
                                 <div class="col d-flex">
                                     <a href="#"><small>Olvidé mi contraseña</small></a>
                                 </div>
                             </div>
-                            <input type="submit" class="btn btn-primary btn-block" value="Ingresá">
+                            <input type="submit" name="login" class="btn btn-primary btn-block" value="Ingresá">
                             <div class="text-center">
-                                <p>¿Todavía no sos miembro? <a id="register-link" href="#">Registrate</a></p>
+                                <p>¿Todavía no sos miembro? <button id="register-link" class="btn btn-link p-0"  onclick="changeToRegister()">Registrate</button></p>
                             </div>
                         </form>
                     </div>
                     <div class="tab-pane fade" id="pills-register">
-                        <form action="" method="post">
+                        <form action="" method="POST">
+                            {% csrf_token %}
                             <div class="form-floating mb-4">
-                                <input required type="text" id="registerName" class="form-control" placeholder="Nombre"/>
+                                <input required type="text" name="name" id="registerName" class="form-control" placeholder="Nombre"/>
                                 <label for="registerName">Nombre</label>
                             </div>
                             <div class="form-floating mb-4">
-                                <input required type="text" id="registerSurname" class="form-control" placeholder="Apellido"/>
+                                <input required type="text" name="surname" id="registerSurname" class="form-control" placeholder="Apellido"/>
                                 <label for="registerSurname">Apellido</label>
                             </div>
                             <div class="form-floating mb-4">
-                                <input required type="text" id="registerUsername" class="form-control" placeholder="Usuario" maxlength="30"/>
+                                <input required type="text" name="username" id="registerUsername" class="form-control" placeholder="Usuario" maxlength="30"/>
                                 <label for="registerUsername">Usuario</label>
                             </div>
                             <div class="form-floating mb-4">
-                                <input required type="email" id="registerEmail" class="form-control" placeholder="E-Mail"/>
+                                <input required type="email" name="email" id="registerEmail" class="form-control" placeholder="E-Mail" maxlength="254"/>
                                 <label for="registerEmail">E-Mail</label>
                             </div>
                             <div class="form-floating mb-4">
-                                <input required type="password" id="registerPassword" class="form-control" placeholder="Contraseña" minlength="8"/>
+                                <input required type="password" name="password" id="registerPassword" class="form-control" placeholder="Contraseña" minlength="8"/>
                                 <label class="form-label" for="registerPassword">Contraseña</label>
-                            </div>
-                            <div class="form-floating mb-4">
-                                <input required type="password" id="registerRepeatPassword" class="form-control" placeholder="Confirmar Contraseña" minlength="8"/>
-                                <label for="registerRepeatPassword">Confirmar contraseña</label>
                             </div>
                             <div class="form-check d-flex justify-content-center mb-4">
                                 <input required class="form-check-input me-2" type="checkbox" value="" id="registerCheck" />
@@ -116,7 +108,7 @@
                                     Leí y estoy de acuerdo con los términos y condiciones
                                 </label>
                             </div>
-                            <button type="submit" class="btn btn-primary btn-block">Registrate</button>
+                            <input type="submit" name="signup" class="btn btn-primary btn-block" value="Registrate">
                         </form>
                     </div>
                 </div>
