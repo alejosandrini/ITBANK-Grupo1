@@ -3,7 +3,7 @@ CREATE TABLE tarjetas (
     id_tarjeta integer PRIMARY KEY,
     id_marca_tarjeta integer NOT NULL,
     customer_id integer NOT NULL,
-    numero integer NOT NULL UNIQUE,
+    numero integer NOT NULL UNIQUE CHECK(length(numero)<=20),
     CVV integer NOT NULL, 
     fecha_otorgamiento text NOT NULL, 
     fecha_expiracion text NOT NULL, 
