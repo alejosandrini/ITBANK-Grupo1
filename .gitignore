@@ -2,11 +2,16 @@ scss/
 node_modules/
 .idea/
 venv/
+entornovirtual/
+mientorno/
+
 
 */*/*/__pycache__/
 */*/__pycache__/
 */__pycache__/
+**/__pycache__/
 
 *.log
 *.pot
 *.pyc
+

@@ -1,0 +1,17 @@
+# Todos los comandos estan ejecutados desde una terminal Git BASH
+
+1) pythom -m venv <Nombre del Entorno Virtual>
+
+2) source <Nombre del Entorno Virtual>/Scripts/activate
+
+Opcional) Si no esta instalado Django en el venv, hacer:
+    pip install django
+
+Opcional) Si no esta creado el proyecto, hacer:
+    django-admin.py startproject <Nombre del Proyecto>
+
+3) cd <Nombre del Proyecto>
+    python manage.py runserver
+
+Opcional) Si no estan creadas las aplicaciones, hacer:
+    python manage.py startapp <Nombre de la Aplicacion>
