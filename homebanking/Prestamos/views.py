@@ -10,12 +10,14 @@ from Prestamos.models import Prestamo
 from datetime import timedelta, datetime
 
 
+
 class PrestamosView(View):
     def get(self, request):
         return redirect('index')
 
     @method_decorator(requires_csrf_token)
     def post(self, request):
+
         amount = int(request.POST['amount'])
         cliente = request.session['cliente']
 
@@ -36,7 +38,7 @@ class PrestamosView(View):
             prestamo = Prestamo(
                 loan_type=request.POST['type'],
                 loan_date=str(datetime.now() + timedelta(days=730))[0:10],
-                loan_total=amount,
+                loan_total=amount * 100,
                 customer_id=cliente['customer_id']
             )
 
