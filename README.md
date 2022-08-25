@@ -5,6 +5,9 @@ Repositorio del grupo 1, comisión 4 - ITBANK.
 - Castoldi, Bianca
 - Polimeni, Juan Manuel
 - Sandrini, Alejo
+- Calabria, Tomás
+- Portocarrero, Estrella
+- Fonseca, Lautaro
 
 ## Consideraciones Sprint 4:
 1. En el código hay ejemplos para probar
@@ -28,7 +31,7 @@ o trabajar con uno ya creado:
 y ejecutar en la carpeta del proyecto 'homebanking':
 `pip install -r requirements.txt`
 
-# Usuarios
+## Usuarios
 - Superusuario:
     - Username: admin
     - Email: admin@itbank.com

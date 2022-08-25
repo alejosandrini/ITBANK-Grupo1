@@ -12111,6 +12111,20 @@ fieldset:disabled .btn {
   .m-xxl-auto {
     margin: auto !important;
   }
+  .FormfileControl{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 2rem;
+    gap: 1rem;
+  }
+  .prestamoForm{
+    background-color: #fff;
+  }
+  .FormfileControl .form-control-file{
+    background-image: linear-gradient(to bottom, #f4f4f4, #e7e6ec, #dad8e3, #cecadb, #c2bcd2);
+  }
   .mx-xxl-0 {
     margin-right: 0 !important;
     margin-left: 0 !important;
