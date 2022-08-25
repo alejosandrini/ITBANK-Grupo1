@@ -31,7 +31,7 @@ class HomeBankingView(View):
 
         for index, prestamo in enumerate(Prestamo.objects.filter(customer_id=cliente.customer_id), 1):
             prestamos.append(
-                {'type': prestamo.loan_type, 'amount': prestamo.loan_total, 'date': prestamo.loan_date,
+                {'type': prestamo.loan_type, 'amount': prestamo.loan_total / 100, 'date': prestamo.loan_date,
                  'id': index})
 
         request.session['cliente'] = cliente_serializado
