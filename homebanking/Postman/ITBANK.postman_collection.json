@@ -1,0 +1,18 @@
+{
+	"info": {
+		"_postman_id": "6a930d77-e98e-4683-8d56-a3f882b06bb2",
+		"name": "ITBANK",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "22903759"
+	},
+	"item": [
+		{
+			"name": "getBranches",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	]
+}

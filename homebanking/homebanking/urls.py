@@ -18,12 +18,7 @@ urlpatterns = [
     path('account/', AccountView.as_view(), name="account"),
     path('loan/', LoanView.as_view(), name="loan"),
     # API
-    path('api/customer/', CustomerAPI.as_view(), name="prestamos"),
-    path('api/account/', AccountAPI.as_view(), name="prestamos"),
-    path('api/loan/', LoanAPI.as_view(), name="prestamos"),
-    path('api/card/', CardAPI.as_view(), name="prestamos"),
-    path('api/address/', AddressAPI.as_view(), name="prestamos"),
-    path('api/branch/', BranchAPI.as_view(), name="prestamos"),
+    path('api/',include('API.urls')),
     # AUTH
     path('accounts/', include("django.contrib.auth.urls")),
 ]
