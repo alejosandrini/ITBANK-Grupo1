@@ -4,7 +4,7 @@ from django.utils.decorators import method_decorator
 from django.views import View
 
 from Clientes.models import Cliente
-from Clientes.serializers import ClienteSerializer
+from Clientes.serializers import CustomerSerializer
 from Cuentas.models import Cuenta
 from Prestamos.models import Prestamo
 from API.views import AccountAPI
@@ -18,7 +18,7 @@ class AccountView(View):
         context = request.GET.dict()
 
         cliente = Cliente.objects.filter(usuario_id=request.user.id).first()
-        cliente_serializado = ClienteSerializer(cliente).data
+        cliente_serializado = CustomerSerializer(cliente).data
 
         cuentas = Cuenta.objects.filter(customer_id=cliente.customer_id)
 
