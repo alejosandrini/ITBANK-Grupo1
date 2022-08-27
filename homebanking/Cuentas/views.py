@@ -7,10 +7,12 @@ from Clientes.models import Cliente
 from Clientes.serializers import ClienteSerializer
 from Cuentas.models import Cuenta
 from Prestamos.models import Prestamo
+from API.views import AccountAPI
+
 from datetime import datetime
 
 
-class HomeBankingView(View):
+class AccountView(View):
     @method_decorator(login_required)
     def get(self, request):
         context = request.GET.dict()
