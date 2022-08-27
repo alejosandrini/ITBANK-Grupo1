@@ -4,11 +4,13 @@ from Clientes.views import CustomerAPI
 from Cuentas.views import AccountAPI
 from Prestamos.views import LoanAPI
 from Tarjetas.views import CardAPI
-from API.views import AddressAPI, BranchAPI
+from API.views import AddressAPI, BranchAPI, CardAPI
 from rest_framework import routers
 
 router = routers.SimpleRouter()
 router.register('branch', BranchAPI)
+router.register('card', CardAPI)
+# router.register('card', CardAPI)
 
 urlpatterns = router.urls
 # urlpatterns += [
