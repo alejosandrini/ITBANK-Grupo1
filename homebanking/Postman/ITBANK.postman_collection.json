@@ -7,7 +7,39 @@
 	},
 	"item": [
 		{
-			"name": "getBranches",
+			"name": "getBranchList",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "getCardList",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "getCardByCustomerId",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "getCardByCustomerId (Not found id)",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "getCustomerDetail",
 			"request": {
 				"method": "GET",
 				"header": []
