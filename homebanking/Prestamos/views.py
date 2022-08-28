@@ -4,11 +4,13 @@ from django.utils.decorators import method_decorator
 from django.views import View
 from django.views.decorators.csrf import requires_csrf_token
 
+from Clientes.models import Cliente
 from Cuentas.models import Cuenta
 from Prestamos.models import Prestamo
 from datetime import datetime
 
 from API.views import LoanAPI
+
 
 class LoanView(View):
     def get(self, request):
@@ -16,41 +18,43 @@ class LoanView(View):
 
     @method_decorator(requires_csrf_token)
     def post(self, request):
+        customer = Cliente.objects.filter(usuario_id=request.user.id).get()
         amount = int(request.POST['amount'])
-        cliente = request.session['cliente']
-        date_str = request.POST['date']
+        date = request.POST['date']
+        loan_type = request.POST['type']
 
-        match cliente['tipo_cliente']:
-            case 'CLASSIC':
+        match customer.tipo_cliente_id:
+            case 1:
                 max_amount = 100000
-            case 'GOLD':
+            case 2:
                 max_amount = 300000
-            case 'BLACK':
+            case 3:
                 max_amount = 500000
             case _:
                 max_amount = 0
 
         if amount > max_amount:
-            messages.warning(request,
-                             f"El Prestamo supera el Maximo para la Preaprobacion permitido para su tipo de cliente: ${max_amount}")
-        elif datetime.strptime(date_str, '%Y-%m-%d').date() < datetime.now().date():
-
-            messages.warning(request,
-                             f"La fecha ingresada debe ser posterior a hoy: {datetime.now().strftime('%d/%m/%Y')}")
+            error = f"El Prestamo supera el Maximo para la Preaprobacion permitido para su tipo de cliente: ${max_amount}"
+        elif datetime.strptime(date, '%Y-%m-%d').date() < datetime.now().date():
+            error = f"La fecha ingresada debe ser posterior a hoy: {datetime.now().strftime('%d/%m/%Y')}"
         else:
             prestamo = Prestamo(
-                loan_type=request.POST['type'],
-                loan_date=date_str,
+                loan_type=loan_type,
+                loan_date=date,
                 loan_total=amount * 100,
-                customer_id=cliente['customer_id']
+                customer_id=customer.customer_id
             )
-            print(prestamo)
 
-            caja_ahorro = Cuenta.objects.filter(customer_id=cliente['customer_id']).first()  # .get(id_tipo_cuenta=1)
+            caja_ahorro = Cuenta.objects.filter(customer_id=customer.customer_id).first()  # .get(id_tipo_cuenta=1)
             caja_ahorro.balance += amount * 100
             caja_ahorro.save()
 
             prestamo.save()
 
+
+        if error is None:
             messages.info(request, "El prestamo ha sido aprobado correctamente")
+        else:
+            messages.warning(request, error)
+
         return redirect('bank')

@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from rest_framework import status
 from rest_framework.exceptions import PermissionDenied
 from rest_framework.permissions import *
@@ -7,6 +9,8 @@ from rest_framework.viewsets import ModelViewSet, ReadOnlyModelViewSet
 
 from Clientes.models import Cliente, Sucursal
 from Clientes.serializers import CustomerSerializer, BranchSerializer
+from Prestamos.models import Prestamo
+from Prestamos.serializers import LoanSerializer
 from Tarjetas.models import Tarjetas
 from Tarjetas.serializers import CardSerializer
 
@@ -24,15 +28,39 @@ class CustomerAPI(ReadOnlyModelViewSet):
         return Response(serializer.data, status.HTTP_200_OK)
 
     def list(self, request, *args, **kwargs):
-        return self.retrieve(request, *args, **kwargs)
+        if request.user.is_staff:
+            return super().list(request, *args, **kwargs)
+        else:
+            return self.retrieve(request, *args, **kwargs)
 
 
-class AccountAPI(APIView):
-    pass
+class AccountAPI(ModelViewSet):
+    queryset = Cliente.objects.all()
+    serializer_class = CustomerSerializer
+    permission_classes = [IsAuthenticated]
 
 
-class LoanAPI(APIView):
-    pass
+class LoanAPI(ModelViewSet):
+    queryset = Prestamo.objects.all()
+    serializer_class = LoanSerializer
+    permission_classes = [IsAuthenticated]
+
+    def create(self, request, *args, **kwargs):
+        print(request)
+        print(kwargs)
+        print(args)
+        if request.user.is_staff:
+            return Response(None, status.HTTP_200_OK)
+        else:
+            raise PermissionDenied()
+
+    def destroy(self, request, *args, **kwargs):
+        if request.user.is_staff:
+
+            print("Tamo activo")
+            return Response(None, status.HTTP_200_OK)
+        else:
+            raise PermissionDenied()
 
 
 class CardAPI(ReadOnlyModelViewSet):
