@@ -1,12 +1,10 @@
 from django.contrib import admin
 from django.urls import path, include
 
-from Clientes.views import CustomerView, CustomerAPI
-from Cuentas.views import AccountView, AccountAPI
+from Clientes.views import CustomerView
+from Cuentas.views import AccountView
 from Login.views import LoginView, LogoutView
-from Prestamos.views import LoanView, LoanAPI
-from Tarjetas.views import CardAPI
-from API.views import AddressAPI, BranchAPI
+from Prestamos.views import LoanView
 
 urlpatterns = [
     # ADMIN
@@ -18,7 +16,7 @@ urlpatterns = [
     path('account/', AccountView.as_view(), name="account"),
     path('loan/', LoanView.as_view(), name="loan"),
     # API
-    path('api/',include('API.urls')),
+    path('api/', include('API.urls')),
     # AUTH
     path('accounts/', include("django.contrib.auth.urls")),
 ]

@@ -1,18 +1,30 @@
+from rest_framework import status
+from rest_framework.exceptions import PermissionDenied
+from rest_framework.permissions import *
+from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet, ReadOnlyModelViewSet
-from rest_framework import status, permissions
-from rest_framework.pagination import PageNumberPagination
-from rest_framework.response import Response
 
-from Clientes.models import Sucursal
-from Clientes.serializers import BranchSerializer
+from Clientes.models import Cliente, Sucursal
+from Clientes.serializers import CustomerSerializer, BranchSerializer
 from Tarjetas.models import Tarjetas
 from Tarjetas.serializers import CardSerializer
 
 from django.http import JsonResponse
 
-class CustomerAPI(APIView):
-    pass
+
+class CustomerAPI(ReadOnlyModelViewSet):
+    queryset = Cliente.objects.all()
+    serializer_class = CustomerSerializer
+    permission_classes = [IsAuthenticated]
+
+    def retrieve(self, request, *args, **kwargs):
+        instance = self.queryset.filter(usuario_id=request.user.id).get()
+        serializer = self.get_serializer(instance)
+        return Response(serializer.data, status.HTTP_200_OK)
+
+    def list(self, request, *args, **kwargs):
+        return self.retrieve(request, *args, **kwargs)
 
 
 class AccountAPI(APIView):
@@ -25,23 +37,25 @@ class LoanAPI(APIView):
 
 class CardAPI(ReadOnlyModelViewSet):
     queryset = Tarjetas.objects.all()
-    # pagination_class = PageNumberPagination al pedir todas dejamos comentado
     serializer_class = CardSerializer
-    # def retrieve(self, request, pk):
-    #     # do your customization here
-    #     instance = self.queryset.filter(customer_id=pk)
-    #     serializer = self.get_serializer(instance)
-    #     return Response(serializer.data, status.HTTP_200_OK)
+
+    def get_permissions(self):
+        if self.action == 'list':
+            permission_classes = [IsAdminUser]
+        else:
+            permission_classes = [IsAuthenticated]
+        return [permission() for permission in permission_classes]
+
     def retrieve(self, request, *args, **kwargs):
-        queryset = self.queryset
-        pk = self.kwargs["pk"]
-        print(pk)
-        print(queryset)
-        instance = queryset.filter(customer_id=pk)
-        print(instance)
-        # serializer = self.get_serializer(instance)
-        return JsonResponse(list(instance.values()), safe=False)
-        # return Response(serializer.data, status.HTTP_200_OK)
+        result = self.queryset.filter(customer_id=self.kwargs["pk"])
+
+        if request.user.is_staff:
+            # ES PREFERIBLE REFACTORIZAR PARA QUE USE RESPONSE, ESTA ES UNA SOLUCION PROVISORIA
+            return JsonResponse(list(result.values()), safe=False)
+            # serializer = self.get_serializer(instance)
+            # return Response(serializer.data, status.HTTP_200_OK)
+        else:
+            raise PermissionDenied()
 
 
 class AddressAPI(APIView):
@@ -50,6 +64,4 @@ class AddressAPI(APIView):
 
 class BranchAPI(ReadOnlyModelViewSet):
     queryset = Sucursal.objects.all()
-    # pagination_class = PageNumberPagination al pedir todas dejamos comentado
     serializer_class = BranchSerializer
-
