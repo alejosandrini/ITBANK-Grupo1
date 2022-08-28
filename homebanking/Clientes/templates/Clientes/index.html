@@ -38,26 +38,9 @@
                         <button type="button" data-bs-target="#carousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
                         <button type="button" data-bs-target="#carousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
                         <button type="button" data-bs-target="#carousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
-                        {% if request.user.is_authenticated %}
-                        <button type="button" data-bs-target="#carousel" data-bs-slide-to="4" aria-label="Slide 5"></button>
-                        {% endif %}
                     </div>
                     <div class="carousel-inner">
-                        {% if request.user.is_authenticated %}
                         <div class="carousel-item active">
-                            <img src="{% static 'Base/Images/Carousel/loan-slide.jpg' %}" class="d-block w-100" alt="...">
-                            <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-75 w-25 rounded mx-auto px-2">
-                                <h5>Préstamos y Créditos</h5>
-                                <p>
-                                    <a href="{% url 'prestamos' %}" class="link-secondary fw-bold">Apreta Acá</a>
-                                    para hacer que las finanzas de tu proyecto sean mucho más sencillas
-                                </p>
-                            </div>
-                        </div>
-                        <div class="carousel-item">
-                        {% else %}
-                        <div class="carousel-item active">
-                        {% endif %}
                             <img src="{% static 'Base/Images/Carousel/a11y-slide.jpg' %}" class="d-block w-100" alt="...">
                             <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-75 w-25 rounded mx-auto px-2">
                                 <h5>Accesible para Todos</h5>

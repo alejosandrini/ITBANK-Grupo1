@@ -18,6 +18,7 @@ class CustomerSerializer(serializers.ModelSerializer):
             'tipo_cliente'
         ]
 
+
 class BranchSerializer(serializers.ModelSerializer):
     class Meta:
         model = Sucursal
