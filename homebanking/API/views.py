@@ -25,23 +25,19 @@ class LoanAPI(APIView):
 
 class CardAPI(ReadOnlyModelViewSet):
     queryset = Tarjetas.objects.all()
-    # pagination_class = PageNumberPagination al pedir todas dejamos comentado
     serializer_class = CardSerializer
-    # def retrieve(self, request, pk):
-    #     # do your customization here
-    #     instance = self.queryset.filter(customer_id=pk)
-    #     serializer = self.get_serializer(instance)
-    #     return Response(serializer.data, status.HTTP_200_OK)
     def retrieve(self, request, *args, **kwargs):
         queryset = self.queryset
-        pk = self.kwargs["pk"]
-        print(pk)
-        print(queryset)
+        pk = kwargs.get("pk", None)
         instance = queryset.filter(customer_id=pk)
-        print(instance)
-        # serializer = self.get_serializer(instance)
-        return JsonResponse(list(instance.values()), safe=False)
-        # return Response(serializer.data, status.HTTP_200_OK)
+        if not instance:
+            return Response("No se encontró un cliente con ese id", status.HTTP_404_NOT_FOUND)
+        else:
+            serializer = self.get_serializer(instance, many=True)
+            return Response(serializer.data)
+            
+        
+    
 
 
 class AddressAPI(APIView):
