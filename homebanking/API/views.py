@@ -10,7 +10,6 @@ from Clientes.models import Cliente, Sucursal, Direcciones
 from Clientes.serializers import CustomerSerializer, BranchSerializer, AddressSerializer
 from Cuentas.models import Cuenta
 from Cuentas.serializers import AccountSerializer
->>>>>>> bb5d01d0193ae950aa59b6201ff4c10c1d1ae491
 from Prestamos.models import Prestamo
 from Prestamos.serializers import LoanSerializer
 from Tarjetas.models import Tarjetas
@@ -78,11 +77,13 @@ class LoanAPI(ModelViewSet):
             raise PermissionDenied()
 
     def create(self, request, *args, **kwargs):
-        print(request)
-        print(kwargs)
-        print(args)
         if request.user.is_staff:
-            return Response(None, status.HTTP_200_OK)
+            customer = Cliente.objects.filter(customer_id=request.data['customer_id']).get()
+            super().create(request, *args, **kwargs)
+            account = Cuenta.objects.filter(customer_id=customer.customer_id).first()
+            account.balance = account.balance + request.data['loan_total']
+            account.save()
+            return Response({'message': 'El prestamo fue anulado correctamente de la cuenta ' + str(account.account_id)}, status.HTTP_200_OK)
         else:
             raise PermissionDenied()
 
@@ -92,10 +93,10 @@ class LoanAPI(ModelViewSet):
             serializer = self.get_serializer(instance)
             super().destroy(request, *args, **kwargs)
             cuenta = Cuenta.objects.filter(customer_id=serializer.data['customer_id']).first()
-            cuenta.balance= cuenta.balance - serializer.data['loan_total']
+            cuenta.balance = cuenta.balance - serializer.data['loan_total']
             cuenta.save()
-            return Response({'message':'El prestamo fue anulado correctamente de la cuenta '+str(cuenta.account_id)},
-                     status.HTTP_202_ACCEPTED)
+            return Response({'message': 'El prestamo fue anulado correctamente de la cuenta ' + str(cuenta.account_id)},
+                            status.HTTP_202_ACCEPTED)
         else:
             raise PermissionDenied()
 
