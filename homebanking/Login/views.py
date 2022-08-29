@@ -24,7 +24,7 @@ class LoginView(View):
             if user is not None:
                 login(request, user)
 
-                return redirect('bank')
+                return redirect('account')
             else:
                 messages.warning(request, "La combinación campo-contraseña no es correcta. Intente nuevamente")
                 return redirect("signup")

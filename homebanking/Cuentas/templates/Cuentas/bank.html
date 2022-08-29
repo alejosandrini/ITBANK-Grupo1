@@ -17,23 +17,21 @@
                         <h2 class="text-light p-0">Detalles del usuario</h2>
                         {% for key, value in request.session.cliente.items %}
                             {% if not 'id' in key %}
-                            <span class=" h6">
-                                <ul class="list-group m-0">
-                                    <li class="list-group-item text-light border-light bg-dark">
-                                    {% if key in 'customer_name' %}
-                                    Nombre
-                                    {% elif key in 'customer_surname' %}
-                                    Apellido
-                                    {% elif key in 'customer_dni' %}
-                                    DNI
-                                    {% elif key in 'dob' %}
-                                    Fecha de Nacimiento
-                                    {% elif key in 'tipo_cliente' %}
-                                    Tipo de Cliente
-                                    {% endif %}
-                                    : {{value}}</li>
-                                </ul>
-                            </span>
+                            <ul class="list-group m-0 fs-4">
+                                <li class="list-group-item text-light border-light bg-dark">
+                                {% if key in 'customer_name' %}
+                                Nombre
+                                {% elif key in 'customer_surname' %}
+                                Apellido
+                                {% elif key in 'customer_dni' %}
+                                DNI
+                                {% elif key in 'dob' %}
+                                Fecha de Nacimiento
+                                {% elif key in 'tipo_cliente' %}
+                                Tipo de Cliente
+                                {% endif %}
+                                : {{value}}</li>
+                            </ul>
                             {% endif %}
                         {% endfor %}
                     </div>
@@ -50,7 +48,7 @@
                 <!-- BALANCE CUENTAS -->
                 <div class="col-12 col-lg-6 g-5">
                     <div class="p-3 border bg-light shadow-lg bg-body rounded ">
-                        <a class="btn text-start w-100" data-bs-toggle="collapse" data-bs-target="#balancetotal" aria-expanded="false" aria-controls="balancetotal" href="#" role="button" href="#" role="button">
+                        <a class="btn text-start w-100" data-bs-toggle="collapse" data-bs-target="#balancetotal" aria-expanded="false" aria-controls="balancetotal" href="#" role="button">
                             <h2>Balance Total</h2>
                             <h4>$ {{request.session.cuentas.balanceTotal}}</h4>
                         </a>
@@ -159,7 +157,7 @@
                     {% endif %}
                         <div class="row justify-content-center">
                             <div class="col-12 col-lg-6 bg-light g-5 p-4">
-                                <form action="{% url 'prestamos' %}" method="post" >
+                                <form action="{% url 'loan' %}" method="post" >
                                     {% csrf_token %}
                                     {% if messages %}
                                         {% for message in messages %}
@@ -192,7 +190,7 @@
                                 <div class="row">
                                     <div class="col-12 g-5">
                                         <div class="p-3 border bg-light shadow-lg bg-body rounded ">
-                                            <a class="btn text-start w-100" data-bs-toggle="collapse" data-bs-target="#prestamos" aria-expanded="false" aria-controls="balancetotal" href="#" role="button" href="#" role="button">
+                                            <a class="btn text-start w-100" data-bs-toggle="collapse" data-bs-target="#prestamos" aria-expanded="false" aria-controls="balancetotal" href="#" role="button">
                                                 <h2>Prestamos Aprobados</h2>
                                             </a>
                                             <div class="collapse" id="prestamos">
