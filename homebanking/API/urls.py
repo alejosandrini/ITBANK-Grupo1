@@ -9,10 +9,10 @@ from rest_framework import routers
 
 router = routers.SimpleRouter()
 router.register('customer', CustomerAPI)
-# router.register('account', AccountAPI)
+router.register('account', AccountAPI)
 router.register('loan', LoanAPI)
 router.register('card', CardAPI)
-# router.register('address', AddressAPI)
+router.register('address', AddressAPI)
 router.register('branch', BranchAPI)
 
 urlpatterns = router.urls

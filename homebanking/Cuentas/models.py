@@ -7,7 +7,8 @@ class Cuenta(models.Model):
     customer_id = models.IntegerField()
     balance = models.IntegerField()
     iban = models.TextField()
-    id_tipo_cuenta = models.IntegerField()
+    id_tipo_cuenta = models.ForeignKey('Cuentas.TiposCuenta',
+            on_delete=models.DO_NOTHING, db_column='id_tipo_cuenta')
 
     class Meta:
         managed = False
