@@ -83,7 +83,7 @@ class LoanAPI(ModelViewSet):
             account = Cuenta.objects.filter(customer_id=customer.customer_id).first()
             account.balance = account.balance + request.data['loan_total']
             account.save()
-            return Response({'message': 'El prestamo fue anulado correctamente de la cuenta ' + str(account.account_id)}, status.HTTP_200_OK)
+            return Response({'message': 'El prestamo fue creado correctamente en la cuenta ' + str(account.account_id)}, status.HTTP_200_OK)
         else:
             raise PermissionDenied()
 

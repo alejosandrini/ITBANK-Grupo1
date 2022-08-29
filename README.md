@@ -48,3 +48,8 @@ y ejecutar en la carpeta del proyecto 'homebanking':
     - Username: usuario3
     - Email: usuario3@usuario3.com
     - Password: usuario3
+
+
+## Consideraciones Sprint 8:
+1. Consideramos empleados a admin y usuario3 (is_staff en la tabla auth.User)
+2. En la carpeta Postman se encuentra la colección que utilizamos de prueba
