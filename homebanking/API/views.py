@@ -6,9 +6,11 @@ from rest_framework.permissions import *
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet, ReadOnlyModelViewSet
+from rest_framework.decorators import action
 
 from Clientes.models import Cliente, Sucursal
 from Clientes.serializers import CustomerSerializer, BranchSerializer
+from Cuentas.models import Cuenta
 from Prestamos.models import Prestamo
 from Prestamos.serializers import LoanSerializer
 from Tarjetas.models import Tarjetas
@@ -56,9 +58,14 @@ class LoanAPI(ModelViewSet):
 
     def destroy(self, request, *args, **kwargs):
         if request.user.is_staff:
-
-            print("Tamo activo")
-            return Response(None, status.HTTP_200_OK)
+            instance = self.get_object()
+            serializer = self.get_serializer(instance)
+            super().destroy(request, *args, **kwargs)
+            cuenta = Cuenta.objects.filter(customer_id=serializer.data['customer_id']).first()
+            cuenta.balance= cuenta.balance - serializer.data['loan_total']
+            cuenta.save()
+            return Response({'message':'El prestamo fue anulado correctamente de la cuenta '+str(cuenta.account_id)},
+                     status.HTTP_202_ACCEPTED)
         else:
             raise PermissionDenied()
 
