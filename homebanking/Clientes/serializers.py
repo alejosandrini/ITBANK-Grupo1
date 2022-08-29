@@ -1,9 +1,9 @@
-from rest_framework import serializers
-from Clientes.models import Cliente, TiposCliente, Sucursal
+from rest_framework.serializers import ModelSerializer, ReadOnlyField
+from Clientes.models import Cliente, Sucursal, Direcciones
 
 
-class CustomerSerializer(serializers.ModelSerializer):
-    tipo_cliente = serializers.ReadOnlyField(source='tipo_cliente_id.tipo')
+class CustomerSerializer(ModelSerializer):
+    tipo_cliente = ReadOnlyField(source='tipo_cliente_id.tipo')
 
     class Meta:
         model = Cliente
@@ -19,7 +19,7 @@ class CustomerSerializer(serializers.ModelSerializer):
         ]
 
 
-class BranchSerializer(serializers.ModelSerializer):
+class BranchSerializer(ModelSerializer):
     class Meta:
         model = Sucursal
         fields = [
@@ -27,4 +27,20 @@ class BranchSerializer(serializers.ModelSerializer):
             'branch_number',
             'branch_name',
             'branch_address_id'
+        ]
+
+
+class AddressSerializer(ModelSerializer):
+    class Meta:
+        model = Direcciones
+        fields = [
+            'id_direccion',
+            'calle',
+            'numero',
+            'ciudad',
+            'provincia',
+            'pais',
+            'id_cliente',
+            'id_empleado',
+            'id_sucursal'
         ]

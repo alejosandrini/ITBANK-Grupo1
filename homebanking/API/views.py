@@ -1,20 +1,19 @@
-from datetime import datetime
-
 from rest_framework import status
+from rest_framework.mixins import UpdateModelMixin
 from rest_framework.exceptions import PermissionDenied
 from rest_framework.permissions import *
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework.viewsets import ModelViewSet, ReadOnlyModelViewSet
+from rest_framework.viewsets import ModelViewSet, ReadOnlyModelViewSet, GenericViewSet
 
-from Clientes.models import Cliente, Sucursal
-from Clientes.serializers import CustomerSerializer, BranchSerializer
+from Clientes.models import Cliente, Sucursal, Direcciones
+from Clientes.serializers import CustomerSerializer, BranchSerializer, AddressSerializer
+from Cuentas.models import Cuenta
+from Cuentas.serializers import AccountSerializer
 from Prestamos.models import Prestamo
 from Prestamos.serializers import LoanSerializer
 from Tarjetas.models import Tarjetas
 from Tarjetas.serializers import CardSerializer
-
-from django.http import JsonResponse
 
 
 class CustomerAPI(ReadOnlyModelViewSet):
@@ -35,15 +34,47 @@ class CustomerAPI(ReadOnlyModelViewSet):
 
 
 class AccountAPI(ModelViewSet):
-    queryset = Cliente.objects.all()
-    serializer_class = CustomerSerializer
+    queryset = Cuenta.objects.all()
+    serializer_class = AccountSerializer
     permission_classes = [IsAuthenticated]
+
+    def retrieve(self, request, *args, **kwargs):
+        customer = Cliente.objects.filter(usuario_id=request.user.id).get()
+        instance = self.queryset.filter(customer_id=customer.customer_id)[int(kwargs.get("pk", None))]
+        serializer = self.get_serializer(instance)
+        return Response(serializer.data, status.HTTP_200_OK)
+
+    def list(self, request, *args, **kwargs):
+        customer = Cliente.objects.filter(usuario_id=request.user.id).get()
+        instance = self.queryset.filter(customer_id=customer.customer_id)
+        serializer = self.get_serializer(instance, many=True)
+        return Response(serializer.data, status.HTTP_200_OK)
 
 
 class LoanAPI(ModelViewSet):
     queryset = Prestamo.objects.all()
     serializer_class = LoanSerializer
     permission_classes = [IsAuthenticated]
+
+    def retrieve(self, request, *args, **kwargs):
+        customer = Cliente.objects.filter(usuario_id=request.user.id).get()
+        instance = self.queryset.filter(customer_id=customer.customer_id)[int(kwargs.get("pk", None))]
+        serializer = self.get_serializer(instance)
+
+        return Response(serializer.data, status.HTTP_200_OK)
+
+    def list(self, request, *args, **kwargs):
+        if request.user.is_staff:
+            instance = []
+            for customer_id in Cliente.objects.filter(branch_id=request.GET['branch_id']).values_list('customer_id',
+                                                                                                      flat=True):
+                for loan in Prestamo.objects.filter(customer_id=customer_id):
+                    instance.append(loan)
+
+            serializer = self.get_serializer(instance, many=True)
+            return Response(serializer.data, status.HTTP_200_OK)
+        else:
+            raise PermissionDenied()
 
     def create(self, request, *args, **kwargs):
         print(request)
@@ -73,7 +104,7 @@ class CardAPI(ReadOnlyModelViewSet):
             pk = kwargs.get("pk", None)
             instance = queryset.filter(customer_id=pk)
             if not instance:
-                return Response({'message':"No se encontró un cliente con ese id"}, status.HTTP_204_NO_CONTENT)
+                return Response({'message': "No se encontró un cliente con ese id"}, status.HTTP_204_NO_CONTENT)
             else:
                 serializer = self.get_serializer(instance, many=True)
                 return Response(serializer.data)
@@ -88,8 +119,21 @@ class CardAPI(ReadOnlyModelViewSet):
         return [permission() for permission in permission_classes]
 
 
-class AddressAPI(APIView):
-    pass
+class AddressAPI(GenericViewSet, UpdateModelMixin):
+    queryset = Direcciones.objects.all()
+    serializer_class = AddressSerializer
+    permission_classes = [IsAuthenticated]
+
+    def update(self, request, *args, **kwargs):
+        instance = self.get_object()
+        instance.name = request.data.get("name")
+        instance.save()
+
+        serializer = self.get_serializer(instance, data=request.data)
+        if serializer.is_valid():
+            self.perform_update(serializer)
+            print(serializer.validated_data)
+        return Response(serializer.data, status.HTTP_200_OK)
 
 
 class BranchAPI(ReadOnlyModelViewSet):
