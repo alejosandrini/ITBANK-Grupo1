@@ -1,0 +1,415 @@
+{
+	"info": {
+		"_postman_id": "73e3c8a5-78de-445f-bb22-08fe55fc5491",
+		"name": "DRF",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23047342"
+	},
+	"item": [
+		{
+			"name": "getCustomerDetailsAsStaff",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "usuario3",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "usuario3",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/customer/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"customer",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getCustomerDetailsAsCustomer",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "usuario1",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "usuario1",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/customer/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"customer",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getClientCard",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "usuario3",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "usuario3",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/card/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"card",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getClientCards",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "usuario3",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "usuario3",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/card/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"card",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createLoan",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "usuario3",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "usuario3",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"loan_type\":\"HIPOTECARIO\",\r\n    \"loan_date\":\"2024-12-10\",\r\n    \"loan_total\":100000,\r\n    \"customer_id\":2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/loan/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"loan",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getClientAccount",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "usuario1",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "usuario1",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/account/0",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"account",
+						"0"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getClientAccounts",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "usuario3",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "usuario3",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/account/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"account",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getClientLoan",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "usuario1",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "usuario1",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/loan/0",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"loan",
+						"0"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getClientLoans",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "usuario3",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "usuario3",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/loan/?branch_id=2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"loan",
+						""
+					],
+					"query": [
+						{
+							"key": "branch_id",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateAddress",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "usuario3",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "usuario3",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"calle\":\"2528 Praesent Rd.\",\r\n    \"numero\":123,\r\n    \"ciudad\":\"Cavaion Veronese\",\r\n    \"provincia\":\"Veneto\",\r\n    \"pais\":\"Italy\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/address/1/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"address",
+						"1",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
